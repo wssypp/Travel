@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.HotelCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.HotelComment" >
+    <id column="hotel_comment_id" property="hotelCommentId" jdbcType="INTEGER" />
+    <result column="hotel_commentt_content" property="hotelCommenttContent" jdbcType="VARCHAR" />
+    <result column="hotel_comment_time" property="hotelCommentTime" jdbcType="TIMESTAMP" />
+    <result column="hotel_comment_img" property="hotelCommentImg" jdbcType="VARCHAR" />
+    <result column="hotel_comment_like" property="hotelCommentLike" jdbcType="INTEGER" />
+    <result column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="hotel_id" property="hotelId" jdbcType="INTEGER" />
+    <result column="hotel_comment_score" property="hotelCommentScore" jdbcType="DOUBLE" />
+    <result column="scenic_comment_intdescr" property="scenicCommentIntdescr" jdbcType="INTEGER" />
+    <result column="scenic_comment_vardescr" property="scenicCommentVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hotel_comment_id, hotel_commentt_content, hotel_comment_time, hotel_comment_img, 
+    hotel_comment_like, users_id, hotel_id, hotel_comment_score, scenic_comment_intdescr, 
+    scenic_comment_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.HotelCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hotel_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hotel_comment
+    where hotel_comment_id = #{hotelCommentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hotel_comment
+    where hotel_comment_id = #{hotelCommentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.HotelCommentExample" >
+    delete from hotel_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.HotelComment" >
+    insert into hotel_comment (hotel_comment_id, hotel_commentt_content, 
+      hotel_comment_time, hotel_comment_img, hotel_comment_like, 
+      users_id, hotel_id, hotel_comment_score, 
+      scenic_comment_intdescr, scenic_comment_vardescr
+      )
+    values (#{hotelCommentId,jdbcType=INTEGER}, #{hotelCommenttContent,jdbcType=VARCHAR}, 
+      #{hotelCommentTime,jdbcType=TIMESTAMP}, #{hotelCommentImg,jdbcType=VARCHAR}, #{hotelCommentLike,jdbcType=INTEGER}, 
+      #{usersId,jdbcType=INTEGER}, #{hotelId,jdbcType=INTEGER}, #{hotelCommentScore,jdbcType=DOUBLE}, 
+      #{scenicCommentIntdescr,jdbcType=INTEGER}, #{scenicCommentVardescr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.HotelComment" >
+    insert into hotel_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotelCommentId != null" >
+        hotel_comment_id,
+      </if>
+      <if test="hotelCommenttContent != null" >
+        hotel_commentt_content,
+      </if>
+      <if test="hotelCommentTime != null" >
+        hotel_comment_time,
+      </if>
+      <if test="hotelCommentImg != null" >
+        hotel_comment_img,
+      </if>
+      <if test="hotelCommentLike != null" >
+        hotel_comment_like,
+      </if>
+      <if test="usersId != null" >
+        users_id,
+      </if>
+      <if test="hotelId != null" >
+        hotel_id,
+      </if>
+      <if test="hotelCommentScore != null" >
+        hotel_comment_score,
+      </if>
+      <if test="scenicCommentIntdescr != null" >
+        scenic_comment_intdescr,
+      </if>
+      <if test="scenicCommentVardescr != null" >
+        scenic_comment_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotelCommentId != null" >
+        #{hotelCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelCommenttContent != null" >
+        #{hotelCommenttContent,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelCommentTime != null" >
+        #{hotelCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hotelCommentImg != null" >
+        #{hotelCommentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelCommentLike != null" >
+        #{hotelCommentLike,jdbcType=INTEGER},
+      </if>
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelId != null" >
+        #{hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelCommentScore != null" >
+        #{hotelCommentScore,jdbcType=DOUBLE},
+      </if>
+      <if test="scenicCommentIntdescr != null" >
+        #{scenicCommentIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentVardescr != null" >
+        #{scenicCommentVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.HotelCommentExample" resultType="java.lang.Integer" >
+    select count(*) from hotel_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update hotel_comment
+    <set >
+      <if test="record.hotelCommentId != null" >
+        hotel_comment_id = #{record.hotelCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelCommenttContent != null" >
+        hotel_commentt_content = #{record.hotelCommenttContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelCommentTime != null" >
+        hotel_comment_time = #{record.hotelCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hotelCommentImg != null" >
+        hotel_comment_img = #{record.hotelCommentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelCommentLike != null" >
+        hotel_comment_like = #{record.hotelCommentLike,jdbcType=INTEGER},
+      </if>
+      <if test="record.usersId != null" >
+        users_id = #{record.usersId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelId != null" >
+        hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelCommentScore != null" >
+        hotel_comment_score = #{record.hotelCommentScore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.scenicCommentIntdescr != null" >
+        scenic_comment_intdescr = #{record.scenicCommentIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicCommentVardescr != null" >
+        scenic_comment_vardescr = #{record.scenicCommentVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update hotel_comment
+    set hotel_comment_id = #{record.hotelCommentId,jdbcType=INTEGER},
+      hotel_commentt_content = #{record.hotelCommenttContent,jdbcType=VARCHAR},
+      hotel_comment_time = #{record.hotelCommentTime,jdbcType=TIMESTAMP},
+      hotel_comment_img = #{record.hotelCommentImg,jdbcType=VARCHAR},
+      hotel_comment_like = #{record.hotelCommentLike,jdbcType=INTEGER},
+      users_id = #{record.usersId,jdbcType=INTEGER},
+      hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      hotel_comment_score = #{record.hotelCommentScore,jdbcType=DOUBLE},
+      scenic_comment_intdescr = #{record.scenicCommentIntdescr,jdbcType=INTEGER},
+      scenic_comment_vardescr = #{record.scenicCommentVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.HotelComment" >
+    update hotel_comment
+    <set >
+      <if test="hotelCommenttContent != null" >
+        hotel_commentt_content = #{hotelCommenttContent,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelCommentTime != null" >
+        hotel_comment_time = #{hotelCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hotelCommentImg != null" >
+        hotel_comment_img = #{hotelCommentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelCommentLike != null" >
+        hotel_comment_like = #{hotelCommentLike,jdbcType=INTEGER},
+      </if>
+      <if test="usersId != null" >
+        users_id = #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelId != null" >
+        hotel_id = #{hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelCommentScore != null" >
+        hotel_comment_score = #{hotelCommentScore,jdbcType=DOUBLE},
+      </if>
+      <if test="scenicCommentIntdescr != null" >
+        scenic_comment_intdescr = #{scenicCommentIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentVardescr != null" >
+        scenic_comment_vardescr = #{scenicCommentVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hotel_comment_id = #{hotelCommentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.HotelComment" >
+    update hotel_comment
+    set hotel_commentt_content = #{hotelCommenttContent,jdbcType=VARCHAR},
+      hotel_comment_time = #{hotelCommentTime,jdbcType=TIMESTAMP},
+      hotel_comment_img = #{hotelCommentImg,jdbcType=VARCHAR},
+      hotel_comment_like = #{hotelCommentLike,jdbcType=INTEGER},
+      users_id = #{usersId,jdbcType=INTEGER},
+      hotel_id = #{hotelId,jdbcType=INTEGER},
+      hotel_comment_score = #{hotelCommentScore,jdbcType=DOUBLE},
+      scenic_comment_intdescr = #{scenicCommentIntdescr,jdbcType=INTEGER},
+      scenic_comment_vardescr = #{scenicCommentVardescr,jdbcType=VARCHAR}
+    where hotel_comment_id = #{hotelCommentId,jdbcType=INTEGER}
+  </update>
+</mapper>

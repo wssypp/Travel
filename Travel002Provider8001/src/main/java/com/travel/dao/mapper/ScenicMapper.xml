@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.ScenicMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Scenic" >
+    <id column="scenic_id" property="scenicId" jdbcType="INTEGER" />
+    <result column="scenic_name" property="scenicName" jdbcType="VARCHAR" />
+    <result column="scenic_commentvolume" property="scenicCommentvolume" jdbcType="INTEGER" />
+    <result column="scenic_visitation" property="scenicVisitation" jdbcType="INTEGER" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="county_id" property="countyId" jdbcType="INTEGER" />
+    <result column="scenic_detailedaddress" property="scenicDetailedaddress" jdbcType="VARCHAR" />
+    <result column="scenic_contact" property="scenicContact" jdbcType="VARCHAR" />
+    <result column="scenic_tel" property="scenicTel" jdbcType="VARCHAR" />
+    <result column="scenic_type" property="scenicType" jdbcType="VARCHAR" />
+    <result column="scenic_picture" property="scenicPicture" jdbcType="VARCHAR" />
+    <result column="scenic_starlevel" property="scenicStarlevel" jdbcType="VARCHAR" />
+    <result column="scenic_score" property="scenicScore" jdbcType="DOUBLE" />
+    <result column="scenic_notice" property="scenicNotice" jdbcType="VARCHAR" />
+    <result column="scenic_lowseasonticket" property="scenicLowseasonticket" jdbcType="DOUBLE" />
+    <result column="scenic_highseasonticket" property="scenicHighseasonticket" jdbcType="DOUBLE" />
+    <result column="scenic_transportion" property="scenicTransportion" jdbcType="VARCHAR" />
+    <result column="scenic_opentime" property="scenicOpentime" jdbcType="TIMESTAMP" />
+    <result column="scenic_descr" property="scenicDescr" jdbcType="VARCHAR" />
+    <result column="scenic_distance" property="scenicDistance" jdbcType="DOUBLE" />
+    <result column="county_intdescr" property="countyIntdescr" jdbcType="INTEGER" />
+    <result column="county_vardescr" property="countyVardescr" jdbcType="VARCHAR" />
+    <result column="scenic_registetime" property="scenicRegistetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    scenic_id, scenic_name, scenic_commentvolume, scenic_visitation, country_id, province_id, 
+    city_id, county_id, scenic_detailedaddress, scenic_contact, scenic_tel, scenic_type, 
+    scenic_picture, scenic_starlevel, scenic_score, scenic_notice, scenic_lowseasonticket, 
+    scenic_highseasonticket, scenic_transportion, scenic_opentime, scenic_descr, scenic_distance, 
+    county_intdescr, county_vardescr, scenic_registetime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.ScenicExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scenic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scenic
+    where scenic_id = #{scenicId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scenic
+    where scenic_id = #{scenicId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.ScenicExample" >
+    delete from scenic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Scenic" >
+    insert into scenic (scenic_id, scenic_name, scenic_commentvolume, 
+      scenic_visitation, country_id, province_id, 
+      city_id, county_id, scenic_detailedaddress, 
+      scenic_contact, scenic_tel, scenic_type, 
+      scenic_picture, scenic_starlevel, scenic_score, 
+      scenic_notice, scenic_lowseasonticket, scenic_highseasonticket, 
+      scenic_transportion, scenic_opentime, scenic_descr, 
+      scenic_distance, county_intdescr, county_vardescr, 
+      scenic_registetime)
+    values (#{scenicId,jdbcType=INTEGER}, #{scenicName,jdbcType=VARCHAR}, #{scenicCommentvolume,jdbcType=INTEGER}, 
+      #{scenicVisitation,jdbcType=INTEGER}, #{countryId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, 
+      #{cityId,jdbcType=INTEGER}, #{countyId,jdbcType=INTEGER}, #{scenicDetailedaddress,jdbcType=VARCHAR}, 
+      #{scenicContact,jdbcType=VARCHAR}, #{scenicTel,jdbcType=VARCHAR}, #{scenicType,jdbcType=VARCHAR}, 
+      #{scenicPicture,jdbcType=VARCHAR}, #{scenicStarlevel,jdbcType=VARCHAR}, #{scenicScore,jdbcType=DOUBLE}, 
+      #{scenicNotice,jdbcType=VARCHAR}, #{scenicLowseasonticket,jdbcType=DOUBLE}, #{scenicHighseasonticket,jdbcType=DOUBLE}, 
+      #{scenicTransportion,jdbcType=VARCHAR}, #{scenicOpentime,jdbcType=TIMESTAMP}, #{scenicDescr,jdbcType=VARCHAR}, 
+      #{scenicDistance,jdbcType=DOUBLE}, #{countyIntdescr,jdbcType=INTEGER}, #{countyVardescr,jdbcType=VARCHAR}, 
+      #{scenicRegistetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Scenic" >
+    insert into scenic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scenicId != null" >
+        scenic_id,
+      </if>
+      <if test="scenicName != null" >
+        scenic_name,
+      </if>
+      <if test="scenicCommentvolume != null" >
+        scenic_commentvolume,
+      </if>
+      <if test="scenicVisitation != null" >
+        scenic_visitation,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="countyId != null" >
+        county_id,
+      </if>
+      <if test="scenicDetailedaddress != null" >
+        scenic_detailedaddress,
+      </if>
+      <if test="scenicContact != null" >
+        scenic_contact,
+      </if>
+      <if test="scenicTel != null" >
+        scenic_tel,
+      </if>
+      <if test="scenicType != null" >
+        scenic_type,
+      </if>
+      <if test="scenicPicture != null" >
+        scenic_picture,
+      </if>
+      <if test="scenicStarlevel != null" >
+        scenic_starlevel,
+      </if>
+      <if test="scenicScore != null" >
+        scenic_score,
+      </if>
+      <if test="scenicNotice != null" >
+        scenic_notice,
+      </if>
+      <if test="scenicLowseasonticket != null" >
+        scenic_lowseasonticket,
+      </if>
+      <if test="scenicHighseasonticket != null" >
+        scenic_highseasonticket,
+      </if>
+      <if test="scenicTransportion != null" >
+        scenic_transportion,
+      </if>
+      <if test="scenicOpentime != null" >
+        scenic_opentime,
+      </if>
+      <if test="scenicDescr != null" >
+        scenic_descr,
+      </if>
+      <if test="scenicDistance != null" >
+        scenic_distance,
+      </if>
+      <if test="countyIntdescr != null" >
+        county_intdescr,
+      </if>
+      <if test="countyVardescr != null" >
+        county_vardescr,
+      </if>
+      <if test="scenicRegistetime != null" >
+        scenic_registetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scenicId != null" >
+        #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicName != null" >
+        #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicCommentvolume != null" >
+        #{scenicCommentvolume,jdbcType=INTEGER},
+      </if>
+      <if test="scenicVisitation != null" >
+        #{scenicVisitation,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicDetailedaddress != null" >
+        #{scenicDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicContact != null" >
+        #{scenicContact,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicTel != null" >
+        #{scenicTel,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicType != null" >
+        #{scenicType,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicPicture != null" >
+        #{scenicPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicStarlevel != null" >
+        #{scenicStarlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicScore != null" >
+        #{scenicScore,jdbcType=DOUBLE},
+      </if>
+      <if test="scenicNotice != null" >
+        #{scenicNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicLowseasonticket != null" >
+        #{scenicLowseasonticket,jdbcType=DOUBLE},
+      </if>
+      <if test="scenicHighseasonticket != null" >
+        #{scenicHighseasonticket,jdbcType=DOUBLE},
+      </if>
+      <if test="scenicTransportion != null" >
+        #{scenicTransportion,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicOpentime != null" >
+        #{scenicOpentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scenicDescr != null" >
+        #{scenicDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicDistance != null" >
+        #{scenicDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="countyIntdescr != null" >
+        #{countyIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="countyVardescr != null" >
+        #{countyVardescr,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicRegistetime != null" >
+        #{scenicRegistetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.ScenicExample" resultType="java.lang.Integer" >
+    select count(*) from scenic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scenic
+    <set >
+      <if test="record.scenicId != null" >
+        scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicName != null" >
+        scenic_name = #{record.scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicCommentvolume != null" >
+        scenic_commentvolume = #{record.scenicCommentvolume,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicVisitation != null" >
+        scenic_visitation = #{record.scenicVisitation,jdbcType=INTEGER},
+      </if>
+      <if test="record.countryId != null" >
+        country_id = #{record.countryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countyId != null" >
+        county_id = #{record.countyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicDetailedaddress != null" >
+        scenic_detailedaddress = #{record.scenicDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicContact != null" >
+        scenic_contact = #{record.scenicContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicTel != null" >
+        scenic_tel = #{record.scenicTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicType != null" >
+        scenic_type = #{record.scenicType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicPicture != null" >
+        scenic_picture = #{record.scenicPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicStarlevel != null" >
+        scenic_starlevel = #{record.scenicStarlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicScore != null" >
+        scenic_score = #{record.scenicScore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.scenicNotice != null" >
+        scenic_notice = #{record.scenicNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicLowseasonticket != null" >
+        scenic_lowseasonticket = #{record.scenicLowseasonticket,jdbcType=DOUBLE},
+      </if>
+      <if test="record.scenicHighseasonticket != null" >
+        scenic_highseasonticket = #{record.scenicHighseasonticket,jdbcType=DOUBLE},
+      </if>
+      <if test="record.scenicTransportion != null" >
+        scenic_transportion = #{record.scenicTransportion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicOpentime != null" >
+        scenic_opentime = #{record.scenicOpentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.scenicDescr != null" >
+        scenic_descr = #{record.scenicDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicDistance != null" >
+        scenic_distance = #{record.scenicDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.countyIntdescr != null" >
+        county_intdescr = #{record.countyIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.countyVardescr != null" >
+        county_vardescr = #{record.countyVardescr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicRegistetime != null" >
+        scenic_registetime = #{record.scenicRegistetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scenic
+    set scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      scenic_name = #{record.scenicName,jdbcType=VARCHAR},
+      scenic_commentvolume = #{record.scenicCommentvolume,jdbcType=INTEGER},
+      scenic_visitation = #{record.scenicVisitation,jdbcType=INTEGER},
+      country_id = #{record.countryId,jdbcType=INTEGER},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      county_id = #{record.countyId,jdbcType=INTEGER},
+      scenic_detailedaddress = #{record.scenicDetailedaddress,jdbcType=VARCHAR},
+      scenic_contact = #{record.scenicContact,jdbcType=VARCHAR},
+      scenic_tel = #{record.scenicTel,jdbcType=VARCHAR},
+      scenic_type = #{record.scenicType,jdbcType=VARCHAR},
+      scenic_picture = #{record.scenicPicture,jdbcType=VARCHAR},
+      scenic_starlevel = #{record.scenicStarlevel,jdbcType=VARCHAR},
+      scenic_score = #{record.scenicScore,jdbcType=DOUBLE},
+      scenic_notice = #{record.scenicNotice,jdbcType=VARCHAR},
+      scenic_lowseasonticket = #{record.scenicLowseasonticket,jdbcType=DOUBLE},
+      scenic_highseasonticket = #{record.scenicHighseasonticket,jdbcType=DOUBLE},
+      scenic_transportion = #{record.scenicTransportion,jdbcType=VARCHAR},
+      scenic_opentime = #{record.scenicOpentime,jdbcType=TIMESTAMP},
+      scenic_descr = #{record.scenicDescr,jdbcType=VARCHAR},
+      scenic_distance = #{record.scenicDistance,jdbcType=DOUBLE},
+      county_intdescr = #{record.countyIntdescr,jdbcType=INTEGER},
+      county_vardescr = #{record.countyVardescr,jdbcType=VARCHAR},
+      scenic_registetime = #{record.scenicRegistetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Scenic" >
+    update scenic
+    <set >
+      <if test="scenicName != null" >
+        scenic_name = #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicCommentvolume != null" >
+        scenic_commentvolume = #{scenicCommentvolume,jdbcType=INTEGER},
+      </if>
+      <if test="scenicVisitation != null" >
+        scenic_visitation = #{scenicVisitation,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        county_id = #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicDetailedaddress != null" >
+        scenic_detailedaddress = #{scenicDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicContact != null" >
+        scenic_contact = #{scenicContact,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicTel != null" >
+        scenic_tel = #{scenicTel,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicType != null" >
+        scenic_type = #{scenicType,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicPicture != null" >
+        scenic_picture = #{scenicPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicStarlevel != null" >
+        scenic_starlevel = #{scenicStarlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicScore != null" >
+        scenic_score = #{scenicScore,jdbcType=DOUBLE},
+      </if>
+      <if test="scenicNotice != null" >
+        scenic_notice = #{scenicNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicLowseasonticket != null" >
+        scenic_lowseasonticket = #{scenicLowseasonticket,jdbcType=DOUBLE},
+      </if>
+      <if test="scenicHighseasonticket != null" >
+        scenic_highseasonticket = #{scenicHighseasonticket,jdbcType=DOUBLE},
+      </if>
+      <if test="scenicTransportion != null" >
+        scenic_transportion = #{scenicTransportion,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicOpentime != null" >
+        scenic_opentime = #{scenicOpentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scenicDescr != null" >
+        scenic_descr = #{scenicDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicDistance != null" >
+        scenic_distance = #{scenicDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="countyIntdescr != null" >
+        county_intdescr = #{countyIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="countyVardescr != null" >
+        county_vardescr = #{countyVardescr,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicRegistetime != null" >
+        scenic_registetime = #{scenicRegistetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where scenic_id = #{scenicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Scenic" >
+    update scenic
+    set scenic_name = #{scenicName,jdbcType=VARCHAR},
+      scenic_commentvolume = #{scenicCommentvolume,jdbcType=INTEGER},
+      scenic_visitation = #{scenicVisitation,jdbcType=INTEGER},
+      country_id = #{countryId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      county_id = #{countyId,jdbcType=INTEGER},
+      scenic_detailedaddress = #{scenicDetailedaddress,jdbcType=VARCHAR},
+      scenic_contact = #{scenicContact,jdbcType=VARCHAR},
+      scenic_tel = #{scenicTel,jdbcType=VARCHAR},
+      scenic_type = #{scenicType,jdbcType=VARCHAR},
+      scenic_picture = #{scenicPicture,jdbcType=VARCHAR},
+      scenic_starlevel = #{scenicStarlevel,jdbcType=VARCHAR},
+      scenic_score = #{scenicScore,jdbcType=DOUBLE},
+      scenic_notice = #{scenicNotice,jdbcType=VARCHAR},
+      scenic_lowseasonticket = #{scenicLowseasonticket,jdbcType=DOUBLE},
+      scenic_highseasonticket = #{scenicHighseasonticket,jdbcType=DOUBLE},
+      scenic_transportion = #{scenicTransportion,jdbcType=VARCHAR},
+      scenic_opentime = #{scenicOpentime,jdbcType=TIMESTAMP},
+      scenic_descr = #{scenicDescr,jdbcType=VARCHAR},
+      scenic_distance = #{scenicDistance,jdbcType=DOUBLE},
+      county_intdescr = #{countyIntdescr,jdbcType=INTEGER},
+      county_vardescr = #{countyVardescr,jdbcType=VARCHAR},
+      scenic_registetime = #{scenicRegistetime,jdbcType=TIMESTAMP}
+    where scenic_id = #{scenicId,jdbcType=INTEGER}
+  </update>
+</mapper>

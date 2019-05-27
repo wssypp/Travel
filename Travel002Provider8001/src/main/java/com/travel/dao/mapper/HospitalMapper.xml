@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.HospitalMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Hospital" >
+    <id column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+    <result column="hospital_name" property="hospitalName" jdbcType="VARCHAR" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="county_id" property="countyId" jdbcType="INTEGER" />
+    <result column="hospital_detailedaddress" property="hospitalDetailedaddress" jdbcType="VARCHAR" />
+    <result column="hospital_telephone" property="hospitalTelephone" jdbcType="VARCHAR" />
+    <result column="hospital_img" property="hospitalImg" jdbcType="VARCHAR" />
+    <result column="hospital_intdescr" property="hospitalIntdescr" jdbcType="INTEGER" />
+    <result column="hospital_vardescr" property="hospitalVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hospital_id, hospital_name, belong_type, country_id, province_id, city_id, county_id, 
+    hospital_detailedaddress, hospital_telephone, hospital_img, hospital_intdescr, hospital_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.HospitalExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hospital
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hospital
+    where hospital_id = #{hospitalId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hospital
+    where hospital_id = #{hospitalId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.HospitalExample" >
+    delete from hospital
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Hospital" >
+    insert into hospital (hospital_id, hospital_name, belong_type, 
+      country_id, province_id, city_id, 
+      county_id, hospital_detailedaddress, hospital_telephone, 
+      hospital_img, hospital_intdescr, hospital_vardescr
+      )
+    values (#{hospitalId,jdbcType=INTEGER}, #{hospitalName,jdbcType=VARCHAR}, #{belongType,jdbcType=VARCHAR}, 
+      #{countryId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, 
+      #{countyId,jdbcType=INTEGER}, #{hospitalDetailedaddress,jdbcType=VARCHAR}, #{hospitalTelephone,jdbcType=VARCHAR}, 
+      #{hospitalImg,jdbcType=VARCHAR}, #{hospitalIntdescr,jdbcType=INTEGER}, #{hospitalVardescr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Hospital" >
+    insert into hospital
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hospitalId != null" >
+        hospital_id,
+      </if>
+      <if test="hospitalName != null" >
+        hospital_name,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="countyId != null" >
+        county_id,
+      </if>
+      <if test="hospitalDetailedaddress != null" >
+        hospital_detailedaddress,
+      </if>
+      <if test="hospitalTelephone != null" >
+        hospital_telephone,
+      </if>
+      <if test="hospitalImg != null" >
+        hospital_img,
+      </if>
+      <if test="hospitalIntdescr != null" >
+        hospital_intdescr,
+      </if>
+      <if test="hospitalVardescr != null" >
+        hospital_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalName != null" >
+        #{hospitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalDetailedaddress != null" >
+        #{hospitalDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalTelephone != null" >
+        #{hospitalTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalImg != null" >
+        #{hospitalImg,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalIntdescr != null" >
+        #{hospitalIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalVardescr != null" >
+        #{hospitalVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.HospitalExample" resultType="java.lang.Integer" >
+    select count(*) from hospital
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update hospital
+    <set >
+      <if test="record.hospitalId != null" >
+        hospital_id = #{record.hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hospitalName != null" >
+        hospital_name = #{record.hospitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryId != null" >
+        country_id = #{record.countryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countyId != null" >
+        county_id = #{record.countyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hospitalDetailedaddress != null" >
+        hospital_detailedaddress = #{record.hospitalDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hospitalTelephone != null" >
+        hospital_telephone = #{record.hospitalTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hospitalImg != null" >
+        hospital_img = #{record.hospitalImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hospitalIntdescr != null" >
+        hospital_intdescr = #{record.hospitalIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.hospitalVardescr != null" >
+        hospital_vardescr = #{record.hospitalVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update hospital
+    set hospital_id = #{record.hospitalId,jdbcType=INTEGER},
+      hospital_name = #{record.hospitalName,jdbcType=VARCHAR},
+      belong_type = #{record.belongType,jdbcType=VARCHAR},
+      country_id = #{record.countryId,jdbcType=INTEGER},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      county_id = #{record.countyId,jdbcType=INTEGER},
+      hospital_detailedaddress = #{record.hospitalDetailedaddress,jdbcType=VARCHAR},
+      hospital_telephone = #{record.hospitalTelephone,jdbcType=VARCHAR},
+      hospital_img = #{record.hospitalImg,jdbcType=VARCHAR},
+      hospital_intdescr = #{record.hospitalIntdescr,jdbcType=INTEGER},
+      hospital_vardescr = #{record.hospitalVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Hospital" >
+    update hospital
+    <set >
+      <if test="hospitalName != null" >
+        hospital_name = #{hospitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        county_id = #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalDetailedaddress != null" >
+        hospital_detailedaddress = #{hospitalDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalTelephone != null" >
+        hospital_telephone = #{hospitalTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalImg != null" >
+        hospital_img = #{hospitalImg,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalIntdescr != null" >
+        hospital_intdescr = #{hospitalIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalVardescr != null" >
+        hospital_vardescr = #{hospitalVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hospital_id = #{hospitalId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Hospital" >
+    update hospital
+    set hospital_name = #{hospitalName,jdbcType=VARCHAR},
+      belong_type = #{belongType,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      county_id = #{countyId,jdbcType=INTEGER},
+      hospital_detailedaddress = #{hospitalDetailedaddress,jdbcType=VARCHAR},
+      hospital_telephone = #{hospitalTelephone,jdbcType=VARCHAR},
+      hospital_img = #{hospitalImg,jdbcType=VARCHAR},
+      hospital_intdescr = #{hospitalIntdescr,jdbcType=INTEGER},
+      hospital_vardescr = #{hospitalVardescr,jdbcType=VARCHAR}
+    where hospital_id = #{hospitalId,jdbcType=INTEGER}
+  </update>
+</mapper>

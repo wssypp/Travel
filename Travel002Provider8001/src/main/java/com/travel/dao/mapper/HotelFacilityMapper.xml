@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.HotelFacilityMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.HotelFacility" >
+    <id column="hotel_facility_id" property="hotelFacilityId" jdbcType="INTEGER" />
+    <result column="hotel_facility_name" property="hotelFacilityName" jdbcType="VARCHAR" />
+    <result column="hotel_facility_type" property="hotelFacilityType" jdbcType="VARCHAR" />
+    <result column="hotel_id" property="hotelId" jdbcType="INTEGER" />
+    <result column="hotel_guestroom_intdescr" property="hotelGuestroomIntdescr" jdbcType="INTEGER" />
+    <result column="hotel_guestroom_vardescr" property="hotelGuestroomVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hotel_facility_id, hotel_facility_name, hotel_facility_type, hotel_id, hotel_guestroom_intdescr, 
+    hotel_guestroom_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.HotelFacilityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hotel_facility
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hotel_facility
+    where hotel_facility_id = #{hotelFacilityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hotel_facility
+    where hotel_facility_id = #{hotelFacilityId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.HotelFacilityExample" >
+    delete from hotel_facility
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.HotelFacility" >
+    insert into hotel_facility (hotel_facility_id, hotel_facility_name, 
+      hotel_facility_type, hotel_id, hotel_guestroom_intdescr, 
+      hotel_guestroom_vardescr)
+    values (#{hotelFacilityId,jdbcType=INTEGER}, #{hotelFacilityName,jdbcType=VARCHAR}, 
+      #{hotelFacilityType,jdbcType=VARCHAR}, #{hotelId,jdbcType=INTEGER}, #{hotelGuestroomIntdescr,jdbcType=INTEGER}, 
+      #{hotelGuestroomVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.HotelFacility" >
+    insert into hotel_facility
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotelFacilityId != null" >
+        hotel_facility_id,
+      </if>
+      <if test="hotelFacilityName != null" >
+        hotel_facility_name,
+      </if>
+      <if test="hotelFacilityType != null" >
+        hotel_facility_type,
+      </if>
+      <if test="hotelId != null" >
+        hotel_id,
+      </if>
+      <if test="hotelGuestroomIntdescr != null" >
+        hotel_guestroom_intdescr,
+      </if>
+      <if test="hotelGuestroomVardescr != null" >
+        hotel_guestroom_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotelFacilityId != null" >
+        #{hotelFacilityId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelFacilityName != null" >
+        #{hotelFacilityName,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelFacilityType != null" >
+        #{hotelFacilityType,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelId != null" >
+        #{hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelGuestroomIntdescr != null" >
+        #{hotelGuestroomIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="hotelGuestroomVardescr != null" >
+        #{hotelGuestroomVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.HotelFacilityExample" resultType="java.lang.Integer" >
+    select count(*) from hotel_facility
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update hotel_facility
+    <set >
+      <if test="record.hotelFacilityId != null" >
+        hotel_facility_id = #{record.hotelFacilityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelFacilityName != null" >
+        hotel_facility_name = #{record.hotelFacilityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelFacilityType != null" >
+        hotel_facility_type = #{record.hotelFacilityType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelId != null" >
+        hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelGuestroomIntdescr != null" >
+        hotel_guestroom_intdescr = #{record.hotelGuestroomIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelGuestroomVardescr != null" >
+        hotel_guestroom_vardescr = #{record.hotelGuestroomVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update hotel_facility
+    set hotel_facility_id = #{record.hotelFacilityId,jdbcType=INTEGER},
+      hotel_facility_name = #{record.hotelFacilityName,jdbcType=VARCHAR},
+      hotel_facility_type = #{record.hotelFacilityType,jdbcType=VARCHAR},
+      hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      hotel_guestroom_intdescr = #{record.hotelGuestroomIntdescr,jdbcType=INTEGER},
+      hotel_guestroom_vardescr = #{record.hotelGuestroomVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.HotelFacility" >
+    update hotel_facility
+    <set >
+      <if test="hotelFacilityName != null" >
+        hotel_facility_name = #{hotelFacilityName,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelFacilityType != null" >
+        hotel_facility_type = #{hotelFacilityType,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelId != null" >
+        hotel_id = #{hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelGuestroomIntdescr != null" >
+        hotel_guestroom_intdescr = #{hotelGuestroomIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="hotelGuestroomVardescr != null" >
+        hotel_guestroom_vardescr = #{hotelGuestroomVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hotel_facility_id = #{hotelFacilityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.HotelFacility" >
+    update hotel_facility
+    set hotel_facility_name = #{hotelFacilityName,jdbcType=VARCHAR},
+      hotel_facility_type = #{hotelFacilityType,jdbcType=VARCHAR},
+      hotel_id = #{hotelId,jdbcType=INTEGER},
+      hotel_guestroom_intdescr = #{hotelGuestroomIntdescr,jdbcType=INTEGER},
+      hotel_guestroom_vardescr = #{hotelGuestroomVardescr,jdbcType=VARCHAR}
+    where hotel_facility_id = #{hotelFacilityId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.CityMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.City" >
+    <id column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_intdescr" property="cityIntdescr" jdbcType="INTEGER" />
+    <result column="city_vardescr" property="cityVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    city_id, city_name, province_id, city_intdescr, city_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.CityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from city
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from city
+    where city_id = #{cityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from city
+    where city_id = #{cityId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.CityExample" >
+    delete from city
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.City" >
+    insert into city (city_id, city_name, province_id, 
+      city_intdescr, city_vardescr)
+    values (#{cityId,jdbcType=INTEGER}, #{cityName,jdbcType=VARCHAR}, #{provinceId,jdbcType=INTEGER}, 
+      #{cityIntdescr,jdbcType=INTEGER}, #{cityVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.City" >
+    insert into city
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityIntdescr != null" >
+        city_intdescr,
+      </if>
+      <if test="cityVardescr != null" >
+        city_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityIntdescr != null" >
+        #{cityIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="cityVardescr != null" >
+        #{cityVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.CityExample" resultType="java.lang.Integer" >
+    select count(*) from city
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update city
+    <set >
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityName != null" >
+        city_name = #{record.cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityIntdescr != null" >
+        city_intdescr = #{record.cityIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityVardescr != null" >
+        city_vardescr = #{record.cityVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update city
+    set city_id = #{record.cityId,jdbcType=INTEGER},
+      city_name = #{record.cityName,jdbcType=VARCHAR},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_intdescr = #{record.cityIntdescr,jdbcType=INTEGER},
+      city_vardescr = #{record.cityVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.City" >
+    update city
+    <set >
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityIntdescr != null" >
+        city_intdescr = #{cityIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="cityVardescr != null" >
+        city_vardescr = #{cityVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where city_id = #{cityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.City" >
+    update city
+    set city_name = #{cityName,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_intdescr = #{cityIntdescr,jdbcType=INTEGER},
+      city_vardescr = #{cityVardescr,jdbcType=VARCHAR}
+    where city_id = #{cityId,jdbcType=INTEGER}
+  </update>
+</mapper>

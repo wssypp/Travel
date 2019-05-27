@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.UsersRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.UsersRole" >
+    <id column="users_role_id" property="usersRoleId" jdbcType="INTEGER" />
+    <result column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="users_role_intdescr" property="usersRoleIntdescr" jdbcType="INTEGER" />
+    <result column="users_role_vardescr" property="usersRoleVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    users_role_id, users_id, role_id, users_role_intdescr, users_role_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.UsersRoleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from users_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from users_role
+    where users_role_id = #{usersRoleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from users_role
+    where users_role_id = #{usersRoleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.UsersRoleExample" >
+    delete from users_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.UsersRole" >
+    insert into users_role (users_role_id, users_id, role_id, 
+      users_role_intdescr, users_role_vardescr)
+    values (#{usersRoleId,jdbcType=INTEGER}, #{usersId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
+      #{usersRoleIntdescr,jdbcType=INTEGER}, #{usersRoleVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.UsersRole" >
+    insert into users_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usersRoleId != null" >
+        users_role_id,
+      </if>
+      <if test="usersId != null" >
+        users_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="usersRoleIntdescr != null" >
+        users_role_intdescr,
+      </if>
+      <if test="usersRoleVardescr != null" >
+        users_role_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usersRoleId != null" >
+        #{usersRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="usersRoleIntdescr != null" >
+        #{usersRoleIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="usersRoleVardescr != null" >
+        #{usersRoleVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.UsersRoleExample" resultType="java.lang.Integer" >
+    select count(*) from users_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update users_role
+    <set >
+      <if test="record.usersRoleId != null" >
+        users_role_id = #{record.usersRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.usersId != null" >
+        users_id = #{record.usersId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleId != null" >
+        role_id = #{record.roleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.usersRoleIntdescr != null" >
+        users_role_intdescr = #{record.usersRoleIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.usersRoleVardescr != null" >
+        users_role_vardescr = #{record.usersRoleVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update users_role
+    set users_role_id = #{record.usersRoleId,jdbcType=INTEGER},
+      users_id = #{record.usersId,jdbcType=INTEGER},
+      role_id = #{record.roleId,jdbcType=INTEGER},
+      users_role_intdescr = #{record.usersRoleIntdescr,jdbcType=INTEGER},
+      users_role_vardescr = #{record.usersRoleVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.UsersRole" >
+    update users_role
+    <set >
+      <if test="usersId != null" >
+        users_id = #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="usersRoleIntdescr != null" >
+        users_role_intdescr = #{usersRoleIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="usersRoleVardescr != null" >
+        users_role_vardescr = #{usersRoleVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where users_role_id = #{usersRoleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.UsersRole" >
+    update users_role
+    set users_id = #{usersId,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER},
+      users_role_intdescr = #{usersRoleIntdescr,jdbcType=INTEGER},
+      users_role_vardescr = #{usersRoleVardescr,jdbcType=VARCHAR}
+    where users_role_id = #{usersRoleId,jdbcType=INTEGER}
+  </update>
+</mapper>

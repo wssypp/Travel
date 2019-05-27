@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.RouteMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Route" >
+    <id column="route_id" property="routeId" jdbcType="INTEGER" />
+    <result column="route_start" property="routeStart" jdbcType="VARCHAR" />
+    <result column="route_end" property="routeEnd" jdbcType="VARCHAR" />
+    <result column="route_intdescr" property="routeIntdescr" jdbcType="INTEGER" />
+    <result column="route_vardescr" property="routeVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    route_id, route_start, route_end, route_intdescr, route_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.RouteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from route
+    where route_id = #{routeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from route
+    where route_id = #{routeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.RouteExample" >
+    delete from route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Route" >
+    insert into route (route_id, route_start, route_end, 
+      route_intdescr, route_vardescr)
+    values (#{routeId,jdbcType=INTEGER}, #{routeStart,jdbcType=VARCHAR}, #{routeEnd,jdbcType=VARCHAR}, 
+      #{routeIntdescr,jdbcType=INTEGER}, #{routeVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Route" >
+    insert into route
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="routeId != null" >
+        route_id,
+      </if>
+      <if test="routeStart != null" >
+        route_start,
+      </if>
+      <if test="routeEnd != null" >
+        route_end,
+      </if>
+      <if test="routeIntdescr != null" >
+        route_intdescr,
+      </if>
+      <if test="routeVardescr != null" >
+        route_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="routeId != null" >
+        #{routeId,jdbcType=INTEGER},
+      </if>
+      <if test="routeStart != null" >
+        #{routeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="routeEnd != null" >
+        #{routeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="routeIntdescr != null" >
+        #{routeIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="routeVardescr != null" >
+        #{routeVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.RouteExample" resultType="java.lang.Integer" >
+    select count(*) from route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update route
+    <set >
+      <if test="record.routeId != null" >
+        route_id = #{record.routeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.routeStart != null" >
+        route_start = #{record.routeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeEnd != null" >
+        route_end = #{record.routeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeIntdescr != null" >
+        route_intdescr = #{record.routeIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.routeVardescr != null" >
+        route_vardescr = #{record.routeVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update route
+    set route_id = #{record.routeId,jdbcType=INTEGER},
+      route_start = #{record.routeStart,jdbcType=VARCHAR},
+      route_end = #{record.routeEnd,jdbcType=VARCHAR},
+      route_intdescr = #{record.routeIntdescr,jdbcType=INTEGER},
+      route_vardescr = #{record.routeVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Route" >
+    update route
+    <set >
+      <if test="routeStart != null" >
+        route_start = #{routeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="routeEnd != null" >
+        route_end = #{routeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="routeIntdescr != null" >
+        route_intdescr = #{routeIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="routeVardescr != null" >
+        route_vardescr = #{routeVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where route_id = #{routeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Route" >
+    update route
+    set route_start = #{routeStart,jdbcType=VARCHAR},
+      route_end = #{routeEnd,jdbcType=VARCHAR},
+      route_intdescr = #{routeIntdescr,jdbcType=INTEGER},
+      route_vardescr = #{routeVardescr,jdbcType=VARCHAR}
+    where route_id = #{routeId,jdbcType=INTEGER}
+  </update>
+</mapper>

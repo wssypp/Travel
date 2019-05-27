@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.SpotMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Spot" >
+    <id column="spot_id" property="spotId" jdbcType="INTEGER" />
+    <result column="spot_name" property="spotName" jdbcType="VARCHAR" />
+    <result column="scenic_id" property="scenicId" jdbcType="INTEGER" />
+    <result column="spot_descr" property="spotDescr" jdbcType="INTEGER" />
+    <result column="bank_telephone" property="bankTelephone" jdbcType="VARCHAR" />
+    <result column="spot_intdescr" property="spotIntdescr" jdbcType="INTEGER" />
+    <result column="spot_vardescr" property="spotVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    spot_id, spot_name, scenic_id, spot_descr, bank_telephone, spot_intdescr, spot_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.SpotExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from spot
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from spot
+    where spot_id = #{spotId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from spot
+    where spot_id = #{spotId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.SpotExample" >
+    delete from spot
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Spot" >
+    insert into spot (spot_id, spot_name, scenic_id, 
+      spot_descr, bank_telephone, spot_intdescr, 
+      spot_vardescr)
+    values (#{spotId,jdbcType=INTEGER}, #{spotName,jdbcType=VARCHAR}, #{scenicId,jdbcType=INTEGER}, 
+      #{spotDescr,jdbcType=INTEGER}, #{bankTelephone,jdbcType=VARCHAR}, #{spotIntdescr,jdbcType=INTEGER}, 
+      #{spotVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Spot" >
+    insert into spot
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spotId != null" >
+        spot_id,
+      </if>
+      <if test="spotName != null" >
+        spot_name,
+      </if>
+      <if test="scenicId != null" >
+        scenic_id,
+      </if>
+      <if test="spotDescr != null" >
+        spot_descr,
+      </if>
+      <if test="bankTelephone != null" >
+        bank_telephone,
+      </if>
+      <if test="spotIntdescr != null" >
+        spot_intdescr,
+      </if>
+      <if test="spotVardescr != null" >
+        spot_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spotId != null" >
+        #{spotId,jdbcType=INTEGER},
+      </if>
+      <if test="spotName != null" >
+        #{spotName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicId != null" >
+        #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="spotDescr != null" >
+        #{spotDescr,jdbcType=INTEGER},
+      </if>
+      <if test="bankTelephone != null" >
+        #{bankTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="spotIntdescr != null" >
+        #{spotIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="spotVardescr != null" >
+        #{spotVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.SpotExample" resultType="java.lang.Integer" >
+    select count(*) from spot
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update spot
+    <set >
+      <if test="record.spotId != null" >
+        spot_id = #{record.spotId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spotName != null" >
+        spot_name = #{record.spotName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicId != null" >
+        scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spotDescr != null" >
+        spot_descr = #{record.spotDescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankTelephone != null" >
+        bank_telephone = #{record.bankTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spotIntdescr != null" >
+        spot_intdescr = #{record.spotIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.spotVardescr != null" >
+        spot_vardescr = #{record.spotVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update spot
+    set spot_id = #{record.spotId,jdbcType=INTEGER},
+      spot_name = #{record.spotName,jdbcType=VARCHAR},
+      scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      spot_descr = #{record.spotDescr,jdbcType=INTEGER},
+      bank_telephone = #{record.bankTelephone,jdbcType=VARCHAR},
+      spot_intdescr = #{record.spotIntdescr,jdbcType=INTEGER},
+      spot_vardescr = #{record.spotVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Spot" >
+    update spot
+    <set >
+      <if test="spotName != null" >
+        spot_name = #{spotName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicId != null" >
+        scenic_id = #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="spotDescr != null" >
+        spot_descr = #{spotDescr,jdbcType=INTEGER},
+      </if>
+      <if test="bankTelephone != null" >
+        bank_telephone = #{bankTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="spotIntdescr != null" >
+        spot_intdescr = #{spotIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="spotVardescr != null" >
+        spot_vardescr = #{spotVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where spot_id = #{spotId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Spot" >
+    update spot
+    set spot_name = #{spotName,jdbcType=VARCHAR},
+      scenic_id = #{scenicId,jdbcType=INTEGER},
+      spot_descr = #{spotDescr,jdbcType=INTEGER},
+      bank_telephone = #{bankTelephone,jdbcType=VARCHAR},
+      spot_intdescr = #{spotIntdescr,jdbcType=INTEGER},
+      spot_vardescr = #{spotVardescr,jdbcType=VARCHAR}
+    where spot_id = #{spotId,jdbcType=INTEGER}
+  </update>
+</mapper>

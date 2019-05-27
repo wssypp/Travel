@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.CountryMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Country" >
+    <id column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="country_chinesename" property="countryChinesename" jdbcType="VARCHAR" />
+    <result column="country_englishname" property="countryEnglishname" jdbcType="VARCHAR" />
+    <result column="country_continent" property="countryContinent" jdbcType="VARCHAR" />
+    <result column="country_flag" property="countryFlag" jdbcType="VARCHAR" />
+    <result column="country_intdescr" property="countryIntdescr" jdbcType="INTEGER" />
+    <result column="country_vardescr" property="countryVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    country_id, country_chinesename, country_englishname, country_continent, country_flag, 
+    country_intdescr, country_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.CountryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from country
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from country
+    where country_id = #{countryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from country
+    where country_id = #{countryId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.CountryExample" >
+    delete from country
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Country" >
+    insert into country (country_id, country_chinesename, country_englishname, 
+      country_continent, country_flag, country_intdescr, 
+      country_vardescr)
+    values (#{countryId,jdbcType=INTEGER}, #{countryChinesename,jdbcType=VARCHAR}, #{countryEnglishname,jdbcType=VARCHAR}, 
+      #{countryContinent,jdbcType=VARCHAR}, #{countryFlag,jdbcType=VARCHAR}, #{countryIntdescr,jdbcType=INTEGER}, 
+      #{countryVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Country" >
+    insert into country
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="countryChinesename != null" >
+        country_chinesename,
+      </if>
+      <if test="countryEnglishname != null" >
+        country_englishname,
+      </if>
+      <if test="countryContinent != null" >
+        country_continent,
+      </if>
+      <if test="countryFlag != null" >
+        country_flag,
+      </if>
+      <if test="countryIntdescr != null" >
+        country_intdescr,
+      </if>
+      <if test="countryVardescr != null" >
+        country_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="countryChinesename != null" >
+        #{countryChinesename,jdbcType=VARCHAR},
+      </if>
+      <if test="countryEnglishname != null" >
+        #{countryEnglishname,jdbcType=VARCHAR},
+      </if>
+      <if test="countryContinent != null" >
+        #{countryContinent,jdbcType=VARCHAR},
+      </if>
+      <if test="countryFlag != null" >
+        #{countryFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="countryIntdescr != null" >
+        #{countryIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="countryVardescr != null" >
+        #{countryVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.CountryExample" resultType="java.lang.Integer" >
+    select count(*) from country
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update country
+    <set >
+      <if test="record.countryId != null" >
+        country_id = #{record.countryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countryChinesename != null" >
+        country_chinesename = #{record.countryChinesename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryEnglishname != null" >
+        country_englishname = #{record.countryEnglishname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryContinent != null" >
+        country_continent = #{record.countryContinent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryFlag != null" >
+        country_flag = #{record.countryFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryIntdescr != null" >
+        country_intdescr = #{record.countryIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.countryVardescr != null" >
+        country_vardescr = #{record.countryVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update country
+    set country_id = #{record.countryId,jdbcType=INTEGER},
+      country_chinesename = #{record.countryChinesename,jdbcType=VARCHAR},
+      country_englishname = #{record.countryEnglishname,jdbcType=VARCHAR},
+      country_continent = #{record.countryContinent,jdbcType=VARCHAR},
+      country_flag = #{record.countryFlag,jdbcType=VARCHAR},
+      country_intdescr = #{record.countryIntdescr,jdbcType=INTEGER},
+      country_vardescr = #{record.countryVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Country" >
+    update country
+    <set >
+      <if test="countryChinesename != null" >
+        country_chinesename = #{countryChinesename,jdbcType=VARCHAR},
+      </if>
+      <if test="countryEnglishname != null" >
+        country_englishname = #{countryEnglishname,jdbcType=VARCHAR},
+      </if>
+      <if test="countryContinent != null" >
+        country_continent = #{countryContinent,jdbcType=VARCHAR},
+      </if>
+      <if test="countryFlag != null" >
+        country_flag = #{countryFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="countryIntdescr != null" >
+        country_intdescr = #{countryIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="countryVardescr != null" >
+        country_vardescr = #{countryVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where country_id = #{countryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Country" >
+    update country
+    set country_chinesename = #{countryChinesename,jdbcType=VARCHAR},
+      country_englishname = #{countryEnglishname,jdbcType=VARCHAR},
+      country_continent = #{countryContinent,jdbcType=VARCHAR},
+      country_flag = #{countryFlag,jdbcType=VARCHAR},
+      country_intdescr = #{countryIntdescr,jdbcType=INTEGER},
+      country_vardescr = #{countryVardescr,jdbcType=VARCHAR}
+    where country_id = #{countryId,jdbcType=INTEGER}
+  </update>
+</mapper>

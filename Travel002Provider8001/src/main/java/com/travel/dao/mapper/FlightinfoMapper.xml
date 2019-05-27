@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.FlightinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Flightinfo" >
+    <id column="flightinfo_id" property="flightinfoId" jdbcType="INTEGER" />
+    <result column="aircompany_id" property="aircompanyId" jdbcType="INTEGER" />
+    <result column="airplane_id" property="airplaneId" jdbcType="INTEGER" />
+    <result column="route_id" property="routeId" jdbcType="INTEGER" />
+    <result column="startfly_time" property="startflyTime" jdbcType="TIMESTAMP" />
+    <result column="endfly_time" property="endflyTime" jdbcType="TIMESTAMP" />
+    <result column="startfly_airport" property="startflyAirport" jdbcType="VARCHAR" />
+    <result column="endfly_airport" property="endflyAirport" jdbcType="VARCHAR" />
+    <result column="flightinfo_price" property="flightinfoPrice" jdbcType="DOUBLE" />
+    <result column="flightinfo_intdescr" property="flightinfoIntdescr" jdbcType="INTEGER" />
+    <result column="flightinfo_vardescr" property="flightinfoVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    flightinfo_id, aircompany_id, airplane_id, route_id, startfly_time, endfly_time, 
+    startfly_airport, endfly_airport, flightinfo_price, flightinfo_intdescr, flightinfo_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.FlightinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flightinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from flightinfo
+    where flightinfo_id = #{flightinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from flightinfo
+    where flightinfo_id = #{flightinfoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.FlightinfoExample" >
+    delete from flightinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Flightinfo" >
+    insert into flightinfo (flightinfo_id, aircompany_id, airplane_id, 
+      route_id, startfly_time, endfly_time, 
+      startfly_airport, endfly_airport, flightinfo_price, 
+      flightinfo_intdescr, flightinfo_vardescr)
+    values (#{flightinfoId,jdbcType=INTEGER}, #{aircompanyId,jdbcType=INTEGER}, #{airplaneId,jdbcType=INTEGER}, 
+      #{routeId,jdbcType=INTEGER}, #{startflyTime,jdbcType=TIMESTAMP}, #{endflyTime,jdbcType=TIMESTAMP}, 
+      #{startflyAirport,jdbcType=VARCHAR}, #{endflyAirport,jdbcType=VARCHAR}, #{flightinfoPrice,jdbcType=DOUBLE}, 
+      #{flightinfoIntdescr,jdbcType=INTEGER}, #{flightinfoVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Flightinfo" >
+    insert into flightinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flightinfoId != null" >
+        flightinfo_id,
+      </if>
+      <if test="aircompanyId != null" >
+        aircompany_id,
+      </if>
+      <if test="airplaneId != null" >
+        airplane_id,
+      </if>
+      <if test="routeId != null" >
+        route_id,
+      </if>
+      <if test="startflyTime != null" >
+        startfly_time,
+      </if>
+      <if test="endflyTime != null" >
+        endfly_time,
+      </if>
+      <if test="startflyAirport != null" >
+        startfly_airport,
+      </if>
+      <if test="endflyAirport != null" >
+        endfly_airport,
+      </if>
+      <if test="flightinfoPrice != null" >
+        flightinfo_price,
+      </if>
+      <if test="flightinfoIntdescr != null" >
+        flightinfo_intdescr,
+      </if>
+      <if test="flightinfoVardescr != null" >
+        flightinfo_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flightinfoId != null" >
+        #{flightinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="aircompanyId != null" >
+        #{aircompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="airplaneId != null" >
+        #{airplaneId,jdbcType=INTEGER},
+      </if>
+      <if test="routeId != null" >
+        #{routeId,jdbcType=INTEGER},
+      </if>
+      <if test="startflyTime != null" >
+        #{startflyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endflyTime != null" >
+        #{endflyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startflyAirport != null" >
+        #{startflyAirport,jdbcType=VARCHAR},
+      </if>
+      <if test="endflyAirport != null" >
+        #{endflyAirport,jdbcType=VARCHAR},
+      </if>
+      <if test="flightinfoPrice != null" >
+        #{flightinfoPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="flightinfoIntdescr != null" >
+        #{flightinfoIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="flightinfoVardescr != null" >
+        #{flightinfoVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.FlightinfoExample" resultType="java.lang.Integer" >
+    select count(*) from flightinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update flightinfo
+    <set >
+      <if test="record.flightinfoId != null" >
+        flightinfo_id = #{record.flightinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aircompanyId != null" >
+        aircompany_id = #{record.aircompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.airplaneId != null" >
+        airplane_id = #{record.airplaneId,jdbcType=INTEGER},
+      </if>
+      <if test="record.routeId != null" >
+        route_id = #{record.routeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.startflyTime != null" >
+        startfly_time = #{record.startflyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endflyTime != null" >
+        endfly_time = #{record.endflyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startflyAirport != null" >
+        startfly_airport = #{record.startflyAirport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endflyAirport != null" >
+        endfly_airport = #{record.endflyAirport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flightinfoPrice != null" >
+        flightinfo_price = #{record.flightinfoPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.flightinfoIntdescr != null" >
+        flightinfo_intdescr = #{record.flightinfoIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.flightinfoVardescr != null" >
+        flightinfo_vardescr = #{record.flightinfoVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update flightinfo
+    set flightinfo_id = #{record.flightinfoId,jdbcType=INTEGER},
+      aircompany_id = #{record.aircompanyId,jdbcType=INTEGER},
+      airplane_id = #{record.airplaneId,jdbcType=INTEGER},
+      route_id = #{record.routeId,jdbcType=INTEGER},
+      startfly_time = #{record.startflyTime,jdbcType=TIMESTAMP},
+      endfly_time = #{record.endflyTime,jdbcType=TIMESTAMP},
+      startfly_airport = #{record.startflyAirport,jdbcType=VARCHAR},
+      endfly_airport = #{record.endflyAirport,jdbcType=VARCHAR},
+      flightinfo_price = #{record.flightinfoPrice,jdbcType=DOUBLE},
+      flightinfo_intdescr = #{record.flightinfoIntdescr,jdbcType=INTEGER},
+      flightinfo_vardescr = #{record.flightinfoVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Flightinfo" >
+    update flightinfo
+    <set >
+      <if test="aircompanyId != null" >
+        aircompany_id = #{aircompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="airplaneId != null" >
+        airplane_id = #{airplaneId,jdbcType=INTEGER},
+      </if>
+      <if test="routeId != null" >
+        route_id = #{routeId,jdbcType=INTEGER},
+      </if>
+      <if test="startflyTime != null" >
+        startfly_time = #{startflyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endflyTime != null" >
+        endfly_time = #{endflyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startflyAirport != null" >
+        startfly_airport = #{startflyAirport,jdbcType=VARCHAR},
+      </if>
+      <if test="endflyAirport != null" >
+        endfly_airport = #{endflyAirport,jdbcType=VARCHAR},
+      </if>
+      <if test="flightinfoPrice != null" >
+        flightinfo_price = #{flightinfoPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="flightinfoIntdescr != null" >
+        flightinfo_intdescr = #{flightinfoIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="flightinfoVardescr != null" >
+        flightinfo_vardescr = #{flightinfoVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where flightinfo_id = #{flightinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Flightinfo" >
+    update flightinfo
+    set aircompany_id = #{aircompanyId,jdbcType=INTEGER},
+      airplane_id = #{airplaneId,jdbcType=INTEGER},
+      route_id = #{routeId,jdbcType=INTEGER},
+      startfly_time = #{startflyTime,jdbcType=TIMESTAMP},
+      endfly_time = #{endflyTime,jdbcType=TIMESTAMP},
+      startfly_airport = #{startflyAirport,jdbcType=VARCHAR},
+      endfly_airport = #{endflyAirport,jdbcType=VARCHAR},
+      flightinfo_price = #{flightinfoPrice,jdbcType=DOUBLE},
+      flightinfo_intdescr = #{flightinfoIntdescr,jdbcType=INTEGER},
+      flightinfo_vardescr = #{flightinfoVardescr,jdbcType=VARCHAR}
+    where flightinfo_id = #{flightinfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

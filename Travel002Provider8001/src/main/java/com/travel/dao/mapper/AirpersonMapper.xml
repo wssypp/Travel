@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.AirpersonMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Airperson" >
+    <id column="airperson_id" property="airpersonId" jdbcType="INTEGER" />
+    <result column="airticketorder_id" property="airticketorderId" jdbcType="INTEGER" />
+    <result column="airperson_type" property="airpersonType" jdbcType="VARCHAR" />
+    <result column="identify_type" property="identifyType" jdbcType="VARCHAR" />
+    <result column="identify_code" property="identifyCode" jdbcType="VARCHAR" />
+    <result column="airperson_intdescr" property="airpersonIntdescr" jdbcType="INTEGER" />
+    <result column="airperson_vardescr" property="airpersonVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    airperson_id, airticketorder_id, airperson_type, identify_type, identify_code, airperson_intdescr, 
+    airperson_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.AirpersonExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from airperson
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from airperson
+    where airperson_id = #{airpersonId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from airperson
+    where airperson_id = #{airpersonId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.AirpersonExample" >
+    delete from airperson
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Airperson" >
+    insert into airperson (airperson_id, airticketorder_id, airperson_type, 
+      identify_type, identify_code, airperson_intdescr, 
+      airperson_vardescr)
+    values (#{airpersonId,jdbcType=INTEGER}, #{airticketorderId,jdbcType=INTEGER}, #{airpersonType,jdbcType=VARCHAR}, 
+      #{identifyType,jdbcType=VARCHAR}, #{identifyCode,jdbcType=VARCHAR}, #{airpersonIntdescr,jdbcType=INTEGER}, 
+      #{airpersonVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Airperson" >
+    insert into airperson
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="airpersonId != null" >
+        airperson_id,
+      </if>
+      <if test="airticketorderId != null" >
+        airticketorder_id,
+      </if>
+      <if test="airpersonType != null" >
+        airperson_type,
+      </if>
+      <if test="identifyType != null" >
+        identify_type,
+      </if>
+      <if test="identifyCode != null" >
+        identify_code,
+      </if>
+      <if test="airpersonIntdescr != null" >
+        airperson_intdescr,
+      </if>
+      <if test="airpersonVardescr != null" >
+        airperson_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="airpersonId != null" >
+        #{airpersonId,jdbcType=INTEGER},
+      </if>
+      <if test="airticketorderId != null" >
+        #{airticketorderId,jdbcType=INTEGER},
+      </if>
+      <if test="airpersonType != null" >
+        #{airpersonType,jdbcType=VARCHAR},
+      </if>
+      <if test="identifyType != null" >
+        #{identifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="identifyCode != null" >
+        #{identifyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="airpersonIntdescr != null" >
+        #{airpersonIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="airpersonVardescr != null" >
+        #{airpersonVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.AirpersonExample" resultType="java.lang.Integer" >
+    select count(*) from airperson
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update airperson
+    <set >
+      <if test="record.airpersonId != null" >
+        airperson_id = #{record.airpersonId,jdbcType=INTEGER},
+      </if>
+      <if test="record.airticketorderId != null" >
+        airticketorder_id = #{record.airticketorderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.airpersonType != null" >
+        airperson_type = #{record.airpersonType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.identifyType != null" >
+        identify_type = #{record.identifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.identifyCode != null" >
+        identify_code = #{record.identifyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airpersonIntdescr != null" >
+        airperson_intdescr = #{record.airpersonIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.airpersonVardescr != null" >
+        airperson_vardescr = #{record.airpersonVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update airperson
+    set airperson_id = #{record.airpersonId,jdbcType=INTEGER},
+      airticketorder_id = #{record.airticketorderId,jdbcType=INTEGER},
+      airperson_type = #{record.airpersonType,jdbcType=VARCHAR},
+      identify_type = #{record.identifyType,jdbcType=VARCHAR},
+      identify_code = #{record.identifyCode,jdbcType=VARCHAR},
+      airperson_intdescr = #{record.airpersonIntdescr,jdbcType=INTEGER},
+      airperson_vardescr = #{record.airpersonVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Airperson" >
+    update airperson
+    <set >
+      <if test="airticketorderId != null" >
+        airticketorder_id = #{airticketorderId,jdbcType=INTEGER},
+      </if>
+      <if test="airpersonType != null" >
+        airperson_type = #{airpersonType,jdbcType=VARCHAR},
+      </if>
+      <if test="identifyType != null" >
+        identify_type = #{identifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="identifyCode != null" >
+        identify_code = #{identifyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="airpersonIntdescr != null" >
+        airperson_intdescr = #{airpersonIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="airpersonVardescr != null" >
+        airperson_vardescr = #{airpersonVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where airperson_id = #{airpersonId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Airperson" >
+    update airperson
+    set airticketorder_id = #{airticketorderId,jdbcType=INTEGER},
+      airperson_type = #{airpersonType,jdbcType=VARCHAR},
+      identify_type = #{identifyType,jdbcType=VARCHAR},
+      identify_code = #{identifyCode,jdbcType=VARCHAR},
+      airperson_intdescr = #{airpersonIntdescr,jdbcType=INTEGER},
+      airperson_vardescr = #{airpersonVardescr,jdbcType=VARCHAR}
+    where airperson_id = #{airpersonId,jdbcType=INTEGER}
+  </update>
+</mapper>
