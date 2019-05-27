@@ -1,0 +1,35 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: Travel005Consumer8080-consumer
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    prefix: /
+    suffix: .html
+    enabled: true
+    content-type: text/html; charset=utf-8
+    encoding: UTF-8 
+eureka:
+  client:
+    register-with-eureka: false
+    service-url: 
+      #defaultZone: http://localhost:7001/eureka/,http://localhost:7002/eureka/,http://localhost:7003/eureka/
+      defaultZone: http://localhost:7001/eureka/
+feign:
+  hystrix:
+    enable: true
+#hystrix:
+#  metrics:
+#    enabled: true
+#ribbon:
+#  eager-load:
+#    enabled: true 
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 5000
