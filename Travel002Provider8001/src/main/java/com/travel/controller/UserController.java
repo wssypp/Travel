@@ -31,7 +31,7 @@ public class UserController {
 	private TbUserExample tbUserExample;
 	
 	
-	 //hello
+	 //新增的方法
     @RequestMapping(value = "/hellol", method= RequestMethod.GET)
     public String hello(@RequestParam String name) {
         return "Hello " + name;
