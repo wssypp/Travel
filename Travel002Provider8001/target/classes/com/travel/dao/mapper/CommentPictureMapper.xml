@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.CommentPictureMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.CommentPicture" >
+    <id column="comment_picture_id" property="commentPictureId" jdbcType="INTEGER" />
+    <result column="scenic_comment_id" property="scenicCommentId" jdbcType="INTEGER" />
+    <result column="comment_picture_path" property="commentPicturePath" jdbcType="VARCHAR" />
+    <result column="comment_picture_intdescr" property="commentPictureIntdescr" jdbcType="INTEGER" />
+    <result column="comment_picture_vardescr" property="commentPictureVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    comment_picture_id, scenic_comment_id, comment_picture_path, comment_picture_intdescr, 
+    comment_picture_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.CommentPictureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment_picture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment_picture
+    where comment_picture_id = #{commentPictureId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment_picture
+    where comment_picture_id = #{commentPictureId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.CommentPictureExample" >
+    delete from comment_picture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.CommentPicture" >
+    insert into comment_picture (comment_picture_id, scenic_comment_id, 
+      comment_picture_path, comment_picture_intdescr, 
+      comment_picture_vardescr)
+    values (#{commentPictureId,jdbcType=INTEGER}, #{scenicCommentId,jdbcType=INTEGER}, 
+      #{commentPicturePath,jdbcType=VARCHAR}, #{commentPictureIntdescr,jdbcType=INTEGER}, 
+      #{commentPictureVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.CommentPicture" >
+    insert into comment_picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentPictureId != null" >
+        comment_picture_id,
+      </if>
+      <if test="scenicCommentId != null" >
+        scenic_comment_id,
+      </if>
+      <if test="commentPicturePath != null" >
+        comment_picture_path,
+      </if>
+      <if test="commentPictureIntdescr != null" >
+        comment_picture_intdescr,
+      </if>
+      <if test="commentPictureVardescr != null" >
+        comment_picture_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentPictureId != null" >
+        #{commentPictureId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentId != null" >
+        #{scenicCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="commentPicturePath != null" >
+        #{commentPicturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPictureIntdescr != null" >
+        #{commentPictureIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="commentPictureVardescr != null" >
+        #{commentPictureVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.CommentPictureExample" resultType="java.lang.Integer" >
+    select count(*) from comment_picture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update comment_picture
+    <set >
+      <if test="record.commentPictureId != null" >
+        comment_picture_id = #{record.commentPictureId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicCommentId != null" >
+        scenic_comment_id = #{record.scenicCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentPicturePath != null" >
+        comment_picture_path = #{record.commentPicturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentPictureIntdescr != null" >
+        comment_picture_intdescr = #{record.commentPictureIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentPictureVardescr != null" >
+        comment_picture_vardescr = #{record.commentPictureVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update comment_picture
+    set comment_picture_id = #{record.commentPictureId,jdbcType=INTEGER},
+      scenic_comment_id = #{record.scenicCommentId,jdbcType=INTEGER},
+      comment_picture_path = #{record.commentPicturePath,jdbcType=VARCHAR},
+      comment_picture_intdescr = #{record.commentPictureIntdescr,jdbcType=INTEGER},
+      comment_picture_vardescr = #{record.commentPictureVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.CommentPicture" >
+    update comment_picture
+    <set >
+      <if test="scenicCommentId != null" >
+        scenic_comment_id = #{scenicCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="commentPicturePath != null" >
+        comment_picture_path = #{commentPicturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPictureIntdescr != null" >
+        comment_picture_intdescr = #{commentPictureIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="commentPictureVardescr != null" >
+        comment_picture_vardescr = #{commentPictureVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comment_picture_id = #{commentPictureId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.CommentPicture" >
+    update comment_picture
+    set scenic_comment_id = #{scenicCommentId,jdbcType=INTEGER},
+      comment_picture_path = #{commentPicturePath,jdbcType=VARCHAR},
+      comment_picture_intdescr = #{commentPictureIntdescr,jdbcType=INTEGER},
+      comment_picture_vardescr = #{commentPictureVardescr,jdbcType=VARCHAR}
+    where comment_picture_id = #{commentPictureId,jdbcType=INTEGER}
+  </update>
+</mapper>

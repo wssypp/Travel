@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.UsersMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Users" >
+    <id column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="users_name" property="usersName" jdbcType="VARCHAR" />
+    <result column="users_pass" property="usersPass" jdbcType="VARCHAR" />
+    <result column="users_img" property="usersImg" jdbcType="VARCHAR" />
+    <result column="users_introduce" property="usersIntroduce" jdbcType="VARCHAR" />
+    <result column="users_createtime" property="usersCreatetime" jdbcType="TIMESTAMP" />
+    <result column="users_intdescr" property="usersIntdescr" jdbcType="INTEGER" />
+    <result column="users_vardescr" property="usersVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    users_id, users_name, users_pass, users_img, users_introduce, users_createtime, users_intdescr, 
+    users_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.UsersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where users_id = #{usersId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from users
+    where users_id = #{usersId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.UsersExample" >
+    delete from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Users" >
+    insert into users (users_id, users_name, users_pass, 
+      users_img, users_introduce, users_createtime, 
+      users_intdescr, users_vardescr)
+    values (#{usersId,jdbcType=INTEGER}, #{usersName,jdbcType=VARCHAR}, #{usersPass,jdbcType=VARCHAR}, 
+      #{usersImg,jdbcType=VARCHAR}, #{usersIntroduce,jdbcType=VARCHAR}, #{usersCreatetime,jdbcType=TIMESTAMP}, 
+      #{usersIntdescr,jdbcType=INTEGER}, #{usersVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Users" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usersId != null" >
+        users_id,
+      </if>
+      <if test="usersName != null" >
+        users_name,
+      </if>
+      <if test="usersPass != null" >
+        users_pass,
+      </if>
+      <if test="usersImg != null" >
+        users_img,
+      </if>
+      <if test="usersIntroduce != null" >
+        users_introduce,
+      </if>
+      <if test="usersCreatetime != null" >
+        users_createtime,
+      </if>
+      <if test="usersIntdescr != null" >
+        users_intdescr,
+      </if>
+      <if test="usersVardescr != null" >
+        users_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="usersName != null" >
+        #{usersName,jdbcType=VARCHAR},
+      </if>
+      <if test="usersPass != null" >
+        #{usersPass,jdbcType=VARCHAR},
+      </if>
+      <if test="usersImg != null" >
+        #{usersImg,jdbcType=VARCHAR},
+      </if>
+      <if test="usersIntroduce != null" >
+        #{usersIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="usersCreatetime != null" >
+        #{usersCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usersIntdescr != null" >
+        #{usersIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="usersVardescr != null" >
+        #{usersVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.UsersExample" resultType="java.lang.Integer" >
+    select count(*) from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update users
+    <set >
+      <if test="record.usersId != null" >
+        users_id = #{record.usersId,jdbcType=INTEGER},
+      </if>
+      <if test="record.usersName != null" >
+        users_name = #{record.usersName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersPass != null" >
+        users_pass = #{record.usersPass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersImg != null" >
+        users_img = #{record.usersImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersIntroduce != null" >
+        users_introduce = #{record.usersIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersCreatetime != null" >
+        users_createtime = #{record.usersCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.usersIntdescr != null" >
+        users_intdescr = #{record.usersIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.usersVardescr != null" >
+        users_vardescr = #{record.usersVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update users
+    set users_id = #{record.usersId,jdbcType=INTEGER},
+      users_name = #{record.usersName,jdbcType=VARCHAR},
+      users_pass = #{record.usersPass,jdbcType=VARCHAR},
+      users_img = #{record.usersImg,jdbcType=VARCHAR},
+      users_introduce = #{record.usersIntroduce,jdbcType=VARCHAR},
+      users_createtime = #{record.usersCreatetime,jdbcType=TIMESTAMP},
+      users_intdescr = #{record.usersIntdescr,jdbcType=INTEGER},
+      users_vardescr = #{record.usersVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Users" >
+    update users
+    <set >
+      <if test="usersName != null" >
+        users_name = #{usersName,jdbcType=VARCHAR},
+      </if>
+      <if test="usersPass != null" >
+        users_pass = #{usersPass,jdbcType=VARCHAR},
+      </if>
+      <if test="usersImg != null" >
+        users_img = #{usersImg,jdbcType=VARCHAR},
+      </if>
+      <if test="usersIntroduce != null" >
+        users_introduce = #{usersIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="usersCreatetime != null" >
+        users_createtime = #{usersCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usersIntdescr != null" >
+        users_intdescr = #{usersIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="usersVardescr != null" >
+        users_vardescr = #{usersVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where users_id = #{usersId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Users" >
+    update users
+    set users_name = #{usersName,jdbcType=VARCHAR},
+      users_pass = #{usersPass,jdbcType=VARCHAR},
+      users_img = #{usersImg,jdbcType=VARCHAR},
+      users_introduce = #{usersIntroduce,jdbcType=VARCHAR},
+      users_createtime = #{usersCreatetime,jdbcType=TIMESTAMP},
+      users_intdescr = #{usersIntdescr,jdbcType=INTEGER},
+      users_vardescr = #{usersVardescr,jdbcType=VARCHAR}
+    where users_id = #{usersId,jdbcType=INTEGER}
+  </update>
+</mapper>

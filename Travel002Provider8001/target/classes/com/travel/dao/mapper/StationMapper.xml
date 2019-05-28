@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.StationMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Station" >
+    <id column="station_id" property="stationId" jdbcType="INTEGER" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="station_name" property="stationName" jdbcType="VARCHAR" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="county_id" property="countyId" jdbcType="INTEGER" />
+    <result column="station_detailedaddress" property="stationDetailedaddress" jdbcType="VARCHAR" />
+    <result column="station_telephone" property="stationTelephone" jdbcType="VARCHAR" />
+    <result column="station_img" property="stationImg" jdbcType="VARCHAR" />
+    <result column="station_intdescr" property="stationIntdescr" jdbcType="INTEGER" />
+    <result column="stationl_vardescr" property="stationlVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    station_id, country_id, station_name, belong_type, city_id, province_id, county_id, 
+    station_detailedaddress, station_telephone, station_img, station_intdescr, stationl_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.StationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from station
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from station
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from station
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.StationExample" >
+    delete from station
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Station" >
+    insert into station (station_id, country_id, station_name, 
+      belong_type, city_id, province_id, 
+      county_id, station_detailedaddress, station_telephone, 
+      station_img, station_intdescr, stationl_vardescr
+      )
+    values (#{stationId,jdbcType=INTEGER}, #{countryId,jdbcType=INTEGER}, #{stationName,jdbcType=VARCHAR}, 
+      #{belongType,jdbcType=VARCHAR}, #{cityId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, 
+      #{countyId,jdbcType=INTEGER}, #{stationDetailedaddress,jdbcType=VARCHAR}, #{stationTelephone,jdbcType=VARCHAR}, 
+      #{stationImg,jdbcType=VARCHAR}, #{stationIntdescr,jdbcType=INTEGER}, #{stationlVardescr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Station" >
+    insert into station
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        station_id,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="stationName != null" >
+        station_name,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="countyId != null" >
+        county_id,
+      </if>
+      <if test="stationDetailedaddress != null" >
+        station_detailedaddress,
+      </if>
+      <if test="stationTelephone != null" >
+        station_telephone,
+      </if>
+      <if test="stationImg != null" >
+        station_img,
+      </if>
+      <if test="stationIntdescr != null" >
+        station_intdescr,
+      </if>
+      <if test="stationlVardescr != null" >
+        stationl_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="stationName != null" >
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="stationDetailedaddress != null" >
+        #{stationDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stationTelephone != null" >
+        #{stationTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="stationImg != null" >
+        #{stationImg,jdbcType=VARCHAR},
+      </if>
+      <if test="stationIntdescr != null" >
+        #{stationIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="stationlVardescr != null" >
+        #{stationlVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.StationExample" resultType="java.lang.Integer" >
+    select count(*) from station
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update station
+    <set >
+      <if test="record.stationId != null" >
+        station_id = #{record.stationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countryId != null" >
+        country_id = #{record.countryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stationName != null" >
+        station_name = #{record.stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countyId != null" >
+        county_id = #{record.countyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stationDetailedaddress != null" >
+        station_detailedaddress = #{record.stationDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stationTelephone != null" >
+        station_telephone = #{record.stationTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stationImg != null" >
+        station_img = #{record.stationImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stationIntdescr != null" >
+        station_intdescr = #{record.stationIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.stationlVardescr != null" >
+        stationl_vardescr = #{record.stationlVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update station
+    set station_id = #{record.stationId,jdbcType=INTEGER},
+      country_id = #{record.countryId,jdbcType=INTEGER},
+      station_name = #{record.stationName,jdbcType=VARCHAR},
+      belong_type = #{record.belongType,jdbcType=VARCHAR},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      county_id = #{record.countyId,jdbcType=INTEGER},
+      station_detailedaddress = #{record.stationDetailedaddress,jdbcType=VARCHAR},
+      station_telephone = #{record.stationTelephone,jdbcType=VARCHAR},
+      station_img = #{record.stationImg,jdbcType=VARCHAR},
+      station_intdescr = #{record.stationIntdescr,jdbcType=INTEGER},
+      stationl_vardescr = #{record.stationlVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Station" >
+    update station
+    <set >
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="stationName != null" >
+        station_name = #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        county_id = #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="stationDetailedaddress != null" >
+        station_detailedaddress = #{stationDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stationTelephone != null" >
+        station_telephone = #{stationTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="stationImg != null" >
+        station_img = #{stationImg,jdbcType=VARCHAR},
+      </if>
+      <if test="stationIntdescr != null" >
+        station_intdescr = #{stationIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="stationlVardescr != null" >
+        stationl_vardescr = #{stationlVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Station" >
+    update station
+    set country_id = #{countryId,jdbcType=INTEGER},
+      station_name = #{stationName,jdbcType=VARCHAR},
+      belong_type = #{belongType,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      county_id = #{countyId,jdbcType=INTEGER},
+      station_detailedaddress = #{stationDetailedaddress,jdbcType=VARCHAR},
+      station_telephone = #{stationTelephone,jdbcType=VARCHAR},
+      station_img = #{stationImg,jdbcType=VARCHAR},
+      station_intdescr = #{stationIntdescr,jdbcType=INTEGER},
+      stationl_vardescr = #{stationlVardescr,jdbcType=VARCHAR}
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.HotelResponseMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.HotelResponse" >
+    <id column="hotel_response_id" property="hotelResponseId" jdbcType="INTEGER" />
+    <result column="hotel_response_time" property="hotelResponseTime" jdbcType="TIMESTAMP" />
+    <result column="hotel_response_img" property="hotelResponseImg" jdbcType="VARCHAR" />
+    <result column="hotel_response_contentt" property="hotelResponseContentt" jdbcType="VARCHAR" />
+    <result column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="hotel_comment_id" property="hotelCommentId" jdbcType="INTEGER" />
+    <result column="comment_response_intdescr" property="commentResponseIntdescr" jdbcType="INTEGER" />
+    <result column="comment_response_vardescr" property="commentResponseVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hotel_response_id, hotel_response_time, hotel_response_img, hotel_response_contentt, 
+    users_id, hotel_comment_id, comment_response_intdescr, comment_response_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.HotelResponseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hotel_response
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hotel_response
+    where hotel_response_id = #{hotelResponseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hotel_response
+    where hotel_response_id = #{hotelResponseId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.HotelResponseExample" >
+    delete from hotel_response
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.HotelResponse" >
+    insert into hotel_response (hotel_response_id, hotel_response_time, 
+      hotel_response_img, hotel_response_contentt, 
+      users_id, hotel_comment_id, comment_response_intdescr, 
+      comment_response_vardescr)
+    values (#{hotelResponseId,jdbcType=INTEGER}, #{hotelResponseTime,jdbcType=TIMESTAMP}, 
+      #{hotelResponseImg,jdbcType=VARCHAR}, #{hotelResponseContentt,jdbcType=VARCHAR}, 
+      #{usersId,jdbcType=INTEGER}, #{hotelCommentId,jdbcType=INTEGER}, #{commentResponseIntdescr,jdbcType=INTEGER}, 
+      #{commentResponseVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.HotelResponse" >
+    insert into hotel_response
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotelResponseId != null" >
+        hotel_response_id,
+      </if>
+      <if test="hotelResponseTime != null" >
+        hotel_response_time,
+      </if>
+      <if test="hotelResponseImg != null" >
+        hotel_response_img,
+      </if>
+      <if test="hotelResponseContentt != null" >
+        hotel_response_contentt,
+      </if>
+      <if test="usersId != null" >
+        users_id,
+      </if>
+      <if test="hotelCommentId != null" >
+        hotel_comment_id,
+      </if>
+      <if test="commentResponseIntdescr != null" >
+        comment_response_intdescr,
+      </if>
+      <if test="commentResponseVardescr != null" >
+        comment_response_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotelResponseId != null" >
+        #{hotelResponseId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelResponseTime != null" >
+        #{hotelResponseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hotelResponseImg != null" >
+        #{hotelResponseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelResponseContentt != null" >
+        #{hotelResponseContentt,jdbcType=VARCHAR},
+      </if>
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelCommentId != null" >
+        #{hotelCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="commentResponseIntdescr != null" >
+        #{commentResponseIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="commentResponseVardescr != null" >
+        #{commentResponseVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.HotelResponseExample" resultType="java.lang.Integer" >
+    select count(*) from hotel_response
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update hotel_response
+    <set >
+      <if test="record.hotelResponseId != null" >
+        hotel_response_id = #{record.hotelResponseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelResponseTime != null" >
+        hotel_response_time = #{record.hotelResponseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hotelResponseImg != null" >
+        hotel_response_img = #{record.hotelResponseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelResponseContentt != null" >
+        hotel_response_contentt = #{record.hotelResponseContentt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersId != null" >
+        users_id = #{record.usersId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelCommentId != null" >
+        hotel_comment_id = #{record.hotelCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentResponseIntdescr != null" >
+        comment_response_intdescr = #{record.commentResponseIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentResponseVardescr != null" >
+        comment_response_vardescr = #{record.commentResponseVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update hotel_response
+    set hotel_response_id = #{record.hotelResponseId,jdbcType=INTEGER},
+      hotel_response_time = #{record.hotelResponseTime,jdbcType=TIMESTAMP},
+      hotel_response_img = #{record.hotelResponseImg,jdbcType=VARCHAR},
+      hotel_response_contentt = #{record.hotelResponseContentt,jdbcType=VARCHAR},
+      users_id = #{record.usersId,jdbcType=INTEGER},
+      hotel_comment_id = #{record.hotelCommentId,jdbcType=INTEGER},
+      comment_response_intdescr = #{record.commentResponseIntdescr,jdbcType=INTEGER},
+      comment_response_vardescr = #{record.commentResponseVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.HotelResponse" >
+    update hotel_response
+    <set >
+      <if test="hotelResponseTime != null" >
+        hotel_response_time = #{hotelResponseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hotelResponseImg != null" >
+        hotel_response_img = #{hotelResponseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelResponseContentt != null" >
+        hotel_response_contentt = #{hotelResponseContentt,jdbcType=VARCHAR},
+      </if>
+      <if test="usersId != null" >
+        users_id = #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelCommentId != null" >
+        hotel_comment_id = #{hotelCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="commentResponseIntdescr != null" >
+        comment_response_intdescr = #{commentResponseIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="commentResponseVardescr != null" >
+        comment_response_vardescr = #{commentResponseVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hotel_response_id = #{hotelResponseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.HotelResponse" >
+    update hotel_response
+    set hotel_response_time = #{hotelResponseTime,jdbcType=TIMESTAMP},
+      hotel_response_img = #{hotelResponseImg,jdbcType=VARCHAR},
+      hotel_response_contentt = #{hotelResponseContentt,jdbcType=VARCHAR},
+      users_id = #{usersId,jdbcType=INTEGER},
+      hotel_comment_id = #{hotelCommentId,jdbcType=INTEGER},
+      comment_response_intdescr = #{commentResponseIntdescr,jdbcType=INTEGER},
+      comment_response_vardescr = #{commentResponseVardescr,jdbcType=VARCHAR}
+    where hotel_response_id = #{hotelResponseId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.ScenicOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.ScenicOrder" >
+    <id column="scenic_order_id" property="scenicOrderId" jdbcType="INTEGER" />
+    <result column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="scenic_id" property="scenicId" jdbcType="INTEGER" />
+    <result column="scenic_order_submittime" property="scenicOrderSubmittime" jdbcType="TIMESTAMP" />
+    <result column="scenic_order_number" property="scenicOrderNumber" jdbcType="INTEGER" />
+    <result column="scenic_order_ticeket_count" property="scenicOrderTiceketCount" jdbcType="INTEGER" />
+    <result column="scenic_order_totalprice" property="scenicOrderTotalprice" jdbcType="DOUBLE" />
+    <result column="scenic_order_intdescr" property="scenicOrderIntdescr" jdbcType="INTEGER" />
+    <result column="scenic_order_vardescr" property="scenicOrderVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    scenic_order_id, users_id, scenic_id, scenic_order_submittime, scenic_order_number, 
+    scenic_order_ticeket_count, scenic_order_totalprice, scenic_order_intdescr, scenic_order_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.ScenicOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scenic_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scenic_order
+    where scenic_order_id = #{scenicOrderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scenic_order
+    where scenic_order_id = #{scenicOrderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.ScenicOrderExample" >
+    delete from scenic_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.ScenicOrder" >
+    insert into scenic_order (scenic_order_id, users_id, scenic_id, 
+      scenic_order_submittime, scenic_order_number, 
+      scenic_order_ticeket_count, scenic_order_totalprice, 
+      scenic_order_intdescr, scenic_order_vardescr
+      )
+    values (#{scenicOrderId,jdbcType=INTEGER}, #{usersId,jdbcType=INTEGER}, #{scenicId,jdbcType=INTEGER}, 
+      #{scenicOrderSubmittime,jdbcType=TIMESTAMP}, #{scenicOrderNumber,jdbcType=INTEGER}, 
+      #{scenicOrderTiceketCount,jdbcType=INTEGER}, #{scenicOrderTotalprice,jdbcType=DOUBLE}, 
+      #{scenicOrderIntdescr,jdbcType=INTEGER}, #{scenicOrderVardescr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.ScenicOrder" >
+    insert into scenic_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scenicOrderId != null" >
+        scenic_order_id,
+      </if>
+      <if test="usersId != null" >
+        users_id,
+      </if>
+      <if test="scenicId != null" >
+        scenic_id,
+      </if>
+      <if test="scenicOrderSubmittime != null" >
+        scenic_order_submittime,
+      </if>
+      <if test="scenicOrderNumber != null" >
+        scenic_order_number,
+      </if>
+      <if test="scenicOrderTiceketCount != null" >
+        scenic_order_ticeket_count,
+      </if>
+      <if test="scenicOrderTotalprice != null" >
+        scenic_order_totalprice,
+      </if>
+      <if test="scenicOrderIntdescr != null" >
+        scenic_order_intdescr,
+      </if>
+      <if test="scenicOrderVardescr != null" >
+        scenic_order_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scenicOrderId != null" >
+        #{scenicOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicId != null" >
+        #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicOrderSubmittime != null" >
+        #{scenicOrderSubmittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scenicOrderNumber != null" >
+        #{scenicOrderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="scenicOrderTiceketCount != null" >
+        #{scenicOrderTiceketCount,jdbcType=INTEGER},
+      </if>
+      <if test="scenicOrderTotalprice != null" >
+        #{scenicOrderTotalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="scenicOrderIntdescr != null" >
+        #{scenicOrderIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="scenicOrderVardescr != null" >
+        #{scenicOrderVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.ScenicOrderExample" resultType="java.lang.Integer" >
+    select count(*) from scenic_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scenic_order
+    <set >
+      <if test="record.scenicOrderId != null" >
+        scenic_order_id = #{record.scenicOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.usersId != null" >
+        users_id = #{record.usersId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicId != null" >
+        scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicOrderSubmittime != null" >
+        scenic_order_submittime = #{record.scenicOrderSubmittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.scenicOrderNumber != null" >
+        scenic_order_number = #{record.scenicOrderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicOrderTiceketCount != null" >
+        scenic_order_ticeket_count = #{record.scenicOrderTiceketCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicOrderTotalprice != null" >
+        scenic_order_totalprice = #{record.scenicOrderTotalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.scenicOrderIntdescr != null" >
+        scenic_order_intdescr = #{record.scenicOrderIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicOrderVardescr != null" >
+        scenic_order_vardescr = #{record.scenicOrderVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scenic_order
+    set scenic_order_id = #{record.scenicOrderId,jdbcType=INTEGER},
+      users_id = #{record.usersId,jdbcType=INTEGER},
+      scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      scenic_order_submittime = #{record.scenicOrderSubmittime,jdbcType=TIMESTAMP},
+      scenic_order_number = #{record.scenicOrderNumber,jdbcType=INTEGER},
+      scenic_order_ticeket_count = #{record.scenicOrderTiceketCount,jdbcType=INTEGER},
+      scenic_order_totalprice = #{record.scenicOrderTotalprice,jdbcType=DOUBLE},
+      scenic_order_intdescr = #{record.scenicOrderIntdescr,jdbcType=INTEGER},
+      scenic_order_vardescr = #{record.scenicOrderVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.ScenicOrder" >
+    update scenic_order
+    <set >
+      <if test="usersId != null" >
+        users_id = #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicId != null" >
+        scenic_id = #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicOrderSubmittime != null" >
+        scenic_order_submittime = #{scenicOrderSubmittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scenicOrderNumber != null" >
+        scenic_order_number = #{scenicOrderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="scenicOrderTiceketCount != null" >
+        scenic_order_ticeket_count = #{scenicOrderTiceketCount,jdbcType=INTEGER},
+      </if>
+      <if test="scenicOrderTotalprice != null" >
+        scenic_order_totalprice = #{scenicOrderTotalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="scenicOrderIntdescr != null" >
+        scenic_order_intdescr = #{scenicOrderIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="scenicOrderVardescr != null" >
+        scenic_order_vardescr = #{scenicOrderVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where scenic_order_id = #{scenicOrderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.ScenicOrder" >
+    update scenic_order
+    set users_id = #{usersId,jdbcType=INTEGER},
+      scenic_id = #{scenicId,jdbcType=INTEGER},
+      scenic_order_submittime = #{scenicOrderSubmittime,jdbcType=TIMESTAMP},
+      scenic_order_number = #{scenicOrderNumber,jdbcType=INTEGER},
+      scenic_order_ticeket_count = #{scenicOrderTiceketCount,jdbcType=INTEGER},
+      scenic_order_totalprice = #{scenicOrderTotalprice,jdbcType=DOUBLE},
+      scenic_order_intdescr = #{scenicOrderIntdescr,jdbcType=INTEGER},
+      scenic_order_vardescr = #{scenicOrderVardescr,jdbcType=VARCHAR}
+    where scenic_order_id = #{scenicOrderId,jdbcType=INTEGER}
+  </update>
+</mapper>

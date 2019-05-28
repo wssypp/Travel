@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.EntranceTicketTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.EntranceTicketType" >
+    <id column="entrance_ticket_type_id" property="entranceTicketTypeId" jdbcType="INTEGER" />
+    <result column="entrance_ticket_type_name" property="entranceTicketTypeName" jdbcType="VARCHAR" />
+    <result column="entrance_ticket_type_price" property="entranceTicketTypePrice" jdbcType="DOUBLE" />
+    <result column="entrance_ticket_id" property="entranceTicketId" jdbcType="INTEGER" />
+    <result column="entrance_ticket_type_vardescr" property="entranceTicketTypeVardescr" jdbcType="VARCHAR" />
+    <result column="entrance_ticket_type_intdescr" property="entranceTicketTypeIntdescr" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    entrance_ticket_type_id, entrance_ticket_type_name, entrance_ticket_type_price, entrance_ticket_id, 
+    entrance_ticket_type_vardescr, entrance_ticket_type_intdescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.EntranceTicketTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from entrance_ticket_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from entrance_ticket_type
+    where entrance_ticket_type_id = #{entranceTicketTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from entrance_ticket_type
+    where entrance_ticket_type_id = #{entranceTicketTypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.EntranceTicketTypeExample" >
+    delete from entrance_ticket_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.EntranceTicketType" >
+    insert into entrance_ticket_type (entrance_ticket_type_id, entrance_ticket_type_name, 
+      entrance_ticket_type_price, entrance_ticket_id, 
+      entrance_ticket_type_vardescr, entrance_ticket_type_intdescr
+      )
+    values (#{entranceTicketTypeId,jdbcType=INTEGER}, #{entranceTicketTypeName,jdbcType=VARCHAR}, 
+      #{entranceTicketTypePrice,jdbcType=DOUBLE}, #{entranceTicketId,jdbcType=INTEGER}, 
+      #{entranceTicketTypeVardescr,jdbcType=VARCHAR}, #{entranceTicketTypeIntdescr,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.EntranceTicketType" >
+    insert into entrance_ticket_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="entranceTicketTypeId != null" >
+        entrance_ticket_type_id,
+      </if>
+      <if test="entranceTicketTypeName != null" >
+        entrance_ticket_type_name,
+      </if>
+      <if test="entranceTicketTypePrice != null" >
+        entrance_ticket_type_price,
+      </if>
+      <if test="entranceTicketId != null" >
+        entrance_ticket_id,
+      </if>
+      <if test="entranceTicketTypeVardescr != null" >
+        entrance_ticket_type_vardescr,
+      </if>
+      <if test="entranceTicketTypeIntdescr != null" >
+        entrance_ticket_type_intdescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="entranceTicketTypeId != null" >
+        #{entranceTicketTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="entranceTicketTypeName != null" >
+        #{entranceTicketTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="entranceTicketTypePrice != null" >
+        #{entranceTicketTypePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="entranceTicketId != null" >
+        #{entranceTicketId,jdbcType=INTEGER},
+      </if>
+      <if test="entranceTicketTypeVardescr != null" >
+        #{entranceTicketTypeVardescr,jdbcType=VARCHAR},
+      </if>
+      <if test="entranceTicketTypeIntdescr != null" >
+        #{entranceTicketTypeIntdescr,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.EntranceTicketTypeExample" resultType="java.lang.Integer" >
+    select count(*) from entrance_ticket_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update entrance_ticket_type
+    <set >
+      <if test="record.entranceTicketTypeId != null" >
+        entrance_ticket_type_id = #{record.entranceTicketTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entranceTicketTypeName != null" >
+        entrance_ticket_type_name = #{record.entranceTicketTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entranceTicketTypePrice != null" >
+        entrance_ticket_type_price = #{record.entranceTicketTypePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.entranceTicketId != null" >
+        entrance_ticket_id = #{record.entranceTicketId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entranceTicketTypeVardescr != null" >
+        entrance_ticket_type_vardescr = #{record.entranceTicketTypeVardescr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entranceTicketTypeIntdescr != null" >
+        entrance_ticket_type_intdescr = #{record.entranceTicketTypeIntdescr,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update entrance_ticket_type
+    set entrance_ticket_type_id = #{record.entranceTicketTypeId,jdbcType=INTEGER},
+      entrance_ticket_type_name = #{record.entranceTicketTypeName,jdbcType=VARCHAR},
+      entrance_ticket_type_price = #{record.entranceTicketTypePrice,jdbcType=DOUBLE},
+      entrance_ticket_id = #{record.entranceTicketId,jdbcType=INTEGER},
+      entrance_ticket_type_vardescr = #{record.entranceTicketTypeVardescr,jdbcType=VARCHAR},
+      entrance_ticket_type_intdescr = #{record.entranceTicketTypeIntdescr,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.EntranceTicketType" >
+    update entrance_ticket_type
+    <set >
+      <if test="entranceTicketTypeName != null" >
+        entrance_ticket_type_name = #{entranceTicketTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="entranceTicketTypePrice != null" >
+        entrance_ticket_type_price = #{entranceTicketTypePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="entranceTicketId != null" >
+        entrance_ticket_id = #{entranceTicketId,jdbcType=INTEGER},
+      </if>
+      <if test="entranceTicketTypeVardescr != null" >
+        entrance_ticket_type_vardescr = #{entranceTicketTypeVardescr,jdbcType=VARCHAR},
+      </if>
+      <if test="entranceTicketTypeIntdescr != null" >
+        entrance_ticket_type_intdescr = #{entranceTicketTypeIntdescr,jdbcType=INTEGER},
+      </if>
+    </set>
+    where entrance_ticket_type_id = #{entranceTicketTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.EntranceTicketType" >
+    update entrance_ticket_type
+    set entrance_ticket_type_name = #{entranceTicketTypeName,jdbcType=VARCHAR},
+      entrance_ticket_type_price = #{entranceTicketTypePrice,jdbcType=DOUBLE},
+      entrance_ticket_id = #{entranceTicketId,jdbcType=INTEGER},
+      entrance_ticket_type_vardescr = #{entranceTicketTypeVardescr,jdbcType=VARCHAR},
+      entrance_ticket_type_intdescr = #{entranceTicketTypeIntdescr,jdbcType=INTEGER}
+    where entrance_ticket_type_id = #{entranceTicketTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

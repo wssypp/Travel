@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.BankMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Bank" >
+    <id column="bank_id" property="bankId" jdbcType="INTEGER" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="county_id" property="countyId" jdbcType="INTEGER" />
+    <result column="bank_detailedaddress" property="bankDetailedaddress" jdbcType="VARCHAR" />
+    <result column="bank_telephone" property="bankTelephone" jdbcType="VARCHAR" />
+    <result column="bank_img" property="bankImg" jdbcType="VARCHAR" />
+    <result column="bank_intdescr" property="bankIntdescr" jdbcType="INTEGER" />
+    <result column="bank_vardescr" property="bankVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bank_id, bank_name, belong_type, country_id, province_id, city_id, county_id, bank_detailedaddress, 
+    bank_telephone, bank_img, bank_intdescr, bank_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.BankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bank
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bank
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.BankExample" >
+    delete from bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Bank" >
+    insert into bank (bank_id, bank_name, belong_type, 
+      country_id, province_id, city_id, 
+      county_id, bank_detailedaddress, bank_telephone, 
+      bank_img, bank_intdescr, bank_vardescr
+      )
+    values (#{bankId,jdbcType=INTEGER}, #{bankName,jdbcType=VARCHAR}, #{belongType,jdbcType=VARCHAR}, 
+      #{countryId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, 
+      #{countyId,jdbcType=INTEGER}, #{bankDetailedaddress,jdbcType=VARCHAR}, #{bankTelephone,jdbcType=VARCHAR}, 
+      #{bankImg,jdbcType=VARCHAR}, #{bankIntdescr,jdbcType=INTEGER}, #{bankVardescr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Bank" >
+    insert into bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        bank_id,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="countyId != null" >
+        county_id,
+      </if>
+      <if test="bankDetailedaddress != null" >
+        bank_detailedaddress,
+      </if>
+      <if test="bankTelephone != null" >
+        bank_telephone,
+      </if>
+      <if test="bankImg != null" >
+        bank_img,
+      </if>
+      <if test="bankIntdescr != null" >
+        bank_intdescr,
+      </if>
+      <if test="bankVardescr != null" >
+        bank_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="bankDetailedaddress != null" >
+        #{bankDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bankTelephone != null" >
+        #{bankTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="bankImg != null" >
+        #{bankImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bankIntdescr != null" >
+        #{bankIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="bankVardescr != null" >
+        #{bankVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.BankExample" resultType="java.lang.Integer" >
+    select count(*) from bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bank
+    <set >
+      <if test="record.bankId != null" >
+        bank_id = #{record.bankId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankName != null" >
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryId != null" >
+        country_id = #{record.countryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countyId != null" >
+        county_id = #{record.countyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankDetailedaddress != null" >
+        bank_detailedaddress = #{record.bankDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankTelephone != null" >
+        bank_telephone = #{record.bankTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankImg != null" >
+        bank_img = #{record.bankImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankIntdescr != null" >
+        bank_intdescr = #{record.bankIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankVardescr != null" >
+        bank_vardescr = #{record.bankVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bank
+    set bank_id = #{record.bankId,jdbcType=INTEGER},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      belong_type = #{record.belongType,jdbcType=VARCHAR},
+      country_id = #{record.countryId,jdbcType=INTEGER},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      county_id = #{record.countyId,jdbcType=INTEGER},
+      bank_detailedaddress = #{record.bankDetailedaddress,jdbcType=VARCHAR},
+      bank_telephone = #{record.bankTelephone,jdbcType=VARCHAR},
+      bank_img = #{record.bankImg,jdbcType=VARCHAR},
+      bank_intdescr = #{record.bankIntdescr,jdbcType=INTEGER},
+      bank_vardescr = #{record.bankVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Bank" >
+    update bank
+    <set >
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        county_id = #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="bankDetailedaddress != null" >
+        bank_detailedaddress = #{bankDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bankTelephone != null" >
+        bank_telephone = #{bankTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="bankImg != null" >
+        bank_img = #{bankImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bankIntdescr != null" >
+        bank_intdescr = #{bankIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="bankVardescr != null" >
+        bank_vardescr = #{bankVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Bank" >
+    update bank
+    set bank_name = #{bankName,jdbcType=VARCHAR},
+      belong_type = #{belongType,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      county_id = #{countyId,jdbcType=INTEGER},
+      bank_detailedaddress = #{bankDetailedaddress,jdbcType=VARCHAR},
+      bank_telephone = #{bankTelephone,jdbcType=VARCHAR},
+      bank_img = #{bankImg,jdbcType=VARCHAR},
+      bank_intdescr = #{bankIntdescr,jdbcType=INTEGER},
+      bank_vardescr = #{bankVardescr,jdbcType=VARCHAR}
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.AircompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Aircompany" >
+    <id column="aircompany_id" property="aircompanyId" jdbcType="INTEGER" />
+    <result column="aircompany_name" property="aircompanyName" jdbcType="VARCHAR" />
+    <result column="aircompany_number" property="aircompanyNumber" jdbcType="INTEGER" />
+    <result column="aircompany_img" property="aircompanyImg" jdbcType="VARCHAR" />
+    <result column="hotel_tel" property="hotelTel" jdbcType="VARCHAR" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="county_id" property="countyId" jdbcType="INTEGER" />
+    <result column="aircompany_detailedaddress" property="aircompanyDetailedaddress" jdbcType="VARCHAR" />
+    <result column="aircompany_descr" property="aircompanyDescr" jdbcType="VARCHAR" />
+    <result column="aircompany_intdescr" property="aircompanyIntdescr" jdbcType="INTEGER" />
+    <result column="aircompany_vardescr" property="aircompanyVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    aircompany_id, aircompany_name, aircompany_number, aircompany_img, hotel_tel, country_id, 
+    province_id, city_id, county_id, aircompany_detailedaddress, aircompany_descr, aircompany_intdescr, 
+    aircompany_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.AircompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aircompany
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from aircompany
+    where aircompany_id = #{aircompanyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from aircompany
+    where aircompany_id = #{aircompanyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.AircompanyExample" >
+    delete from aircompany
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Aircompany" >
+    insert into aircompany (aircompany_id, aircompany_name, aircompany_number, 
+      aircompany_img, hotel_tel, country_id, 
+      province_id, city_id, county_id, 
+      aircompany_detailedaddress, aircompany_descr, 
+      aircompany_intdescr, aircompany_vardescr)
+    values (#{aircompanyId,jdbcType=INTEGER}, #{aircompanyName,jdbcType=VARCHAR}, #{aircompanyNumber,jdbcType=INTEGER}, 
+      #{aircompanyImg,jdbcType=VARCHAR}, #{hotelTel,jdbcType=VARCHAR}, #{countryId,jdbcType=INTEGER}, 
+      #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{countyId,jdbcType=INTEGER}, 
+      #{aircompanyDetailedaddress,jdbcType=VARCHAR}, #{aircompanyDescr,jdbcType=VARCHAR}, 
+      #{aircompanyIntdescr,jdbcType=INTEGER}, #{aircompanyVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Aircompany" >
+    insert into aircompany
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aircompanyId != null" >
+        aircompany_id,
+      </if>
+      <if test="aircompanyName != null" >
+        aircompany_name,
+      </if>
+      <if test="aircompanyNumber != null" >
+        aircompany_number,
+      </if>
+      <if test="aircompanyImg != null" >
+        aircompany_img,
+      </if>
+      <if test="hotelTel != null" >
+        hotel_tel,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="countyId != null" >
+        county_id,
+      </if>
+      <if test="aircompanyDetailedaddress != null" >
+        aircompany_detailedaddress,
+      </if>
+      <if test="aircompanyDescr != null" >
+        aircompany_descr,
+      </if>
+      <if test="aircompanyIntdescr != null" >
+        aircompany_intdescr,
+      </if>
+      <if test="aircompanyVardescr != null" >
+        aircompany_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aircompanyId != null" >
+        #{aircompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="aircompanyName != null" >
+        #{aircompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="aircompanyNumber != null" >
+        #{aircompanyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="aircompanyImg != null" >
+        #{aircompanyImg,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelTel != null" >
+        #{hotelTel,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="aircompanyDetailedaddress != null" >
+        #{aircompanyDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="aircompanyDescr != null" >
+        #{aircompanyDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="aircompanyIntdescr != null" >
+        #{aircompanyIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="aircompanyVardescr != null" >
+        #{aircompanyVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.AircompanyExample" resultType="java.lang.Integer" >
+    select count(*) from aircompany
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aircompany
+    <set >
+      <if test="record.aircompanyId != null" >
+        aircompany_id = #{record.aircompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aircompanyName != null" >
+        aircompany_name = #{record.aircompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aircompanyNumber != null" >
+        aircompany_number = #{record.aircompanyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.aircompanyImg != null" >
+        aircompany_img = #{record.aircompanyImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelTel != null" >
+        hotel_tel = #{record.hotelTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryId != null" >
+        country_id = #{record.countryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countyId != null" >
+        county_id = #{record.countyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aircompanyDetailedaddress != null" >
+        aircompany_detailedaddress = #{record.aircompanyDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aircompanyDescr != null" >
+        aircompany_descr = #{record.aircompanyDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aircompanyIntdescr != null" >
+        aircompany_intdescr = #{record.aircompanyIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.aircompanyVardescr != null" >
+        aircompany_vardescr = #{record.aircompanyVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aircompany
+    set aircompany_id = #{record.aircompanyId,jdbcType=INTEGER},
+      aircompany_name = #{record.aircompanyName,jdbcType=VARCHAR},
+      aircompany_number = #{record.aircompanyNumber,jdbcType=INTEGER},
+      aircompany_img = #{record.aircompanyImg,jdbcType=VARCHAR},
+      hotel_tel = #{record.hotelTel,jdbcType=VARCHAR},
+      country_id = #{record.countryId,jdbcType=INTEGER},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      county_id = #{record.countyId,jdbcType=INTEGER},
+      aircompany_detailedaddress = #{record.aircompanyDetailedaddress,jdbcType=VARCHAR},
+      aircompany_descr = #{record.aircompanyDescr,jdbcType=VARCHAR},
+      aircompany_intdescr = #{record.aircompanyIntdescr,jdbcType=INTEGER},
+      aircompany_vardescr = #{record.aircompanyVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Aircompany" >
+    update aircompany
+    <set >
+      <if test="aircompanyName != null" >
+        aircompany_name = #{aircompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="aircompanyNumber != null" >
+        aircompany_number = #{aircompanyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="aircompanyImg != null" >
+        aircompany_img = #{aircompanyImg,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelTel != null" >
+        hotel_tel = #{hotelTel,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        county_id = #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="aircompanyDetailedaddress != null" >
+        aircompany_detailedaddress = #{aircompanyDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="aircompanyDescr != null" >
+        aircompany_descr = #{aircompanyDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="aircompanyIntdescr != null" >
+        aircompany_intdescr = #{aircompanyIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="aircompanyVardescr != null" >
+        aircompany_vardescr = #{aircompanyVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where aircompany_id = #{aircompanyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Aircompany" >
+    update aircompany
+    set aircompany_name = #{aircompanyName,jdbcType=VARCHAR},
+      aircompany_number = #{aircompanyNumber,jdbcType=INTEGER},
+      aircompany_img = #{aircompanyImg,jdbcType=VARCHAR},
+      hotel_tel = #{hotelTel,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      county_id = #{countyId,jdbcType=INTEGER},
+      aircompany_detailedaddress = #{aircompanyDetailedaddress,jdbcType=VARCHAR},
+      aircompany_descr = #{aircompanyDescr,jdbcType=VARCHAR},
+      aircompany_intdescr = #{aircompanyIntdescr,jdbcType=INTEGER},
+      aircompany_vardescr = #{aircompanyVardescr,jdbcType=VARCHAR}
+    where aircompany_id = #{aircompanyId,jdbcType=INTEGER}
+  </update>
+</mapper>

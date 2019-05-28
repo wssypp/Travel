@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.RestaurantMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Restaurant" >
+    <id column="restaurant_id" property="restaurantId" jdbcType="INTEGER" />
+    <result column="restaurant_name" property="restaurantName" jdbcType="VARCHAR" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="county_id" property="countyId" jdbcType="INTEGER" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="restaurant_detailedaddress" property="restaurantDetailedaddress" jdbcType="VARCHAR" />
+    <result column="restaurantk_telephone" property="restaurantkTelephone" jdbcType="VARCHAR" />
+    <result column="restaurant_img" property="restaurantImg" jdbcType="VARCHAR" />
+    <result column="restaurant_intdescr" property="restaurantIntdescr" jdbcType="INTEGER" />
+    <result column="restaurant_vardescr" property="restaurantVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    restaurant_id, restaurant_name, belong_type, province_id, city_id, county_id, country_id, 
+    restaurant_detailedaddress, restaurantk_telephone, restaurant_img, restaurant_intdescr, 
+    restaurant_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.RestaurantExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from restaurant
+    where restaurant_id = #{restaurantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from restaurant
+    where restaurant_id = #{restaurantId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.RestaurantExample" >
+    delete from restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Restaurant" >
+    insert into restaurant (restaurant_id, restaurant_name, belong_type, 
+      province_id, city_id, county_id, 
+      country_id, restaurant_detailedaddress, restaurantk_telephone, 
+      restaurant_img, restaurant_intdescr, restaurant_vardescr
+      )
+    values (#{restaurantId,jdbcType=INTEGER}, #{restaurantName,jdbcType=VARCHAR}, #{belongType,jdbcType=VARCHAR}, 
+      #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{countyId,jdbcType=INTEGER}, 
+      #{countryId,jdbcType=INTEGER}, #{restaurantDetailedaddress,jdbcType=VARCHAR}, #{restaurantkTelephone,jdbcType=VARCHAR}, 
+      #{restaurantImg,jdbcType=VARCHAR}, #{restaurantIntdescr,jdbcType=INTEGER}, #{restaurantVardescr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Restaurant" >
+    insert into restaurant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="restaurantId != null" >
+        restaurant_id,
+      </if>
+      <if test="restaurantName != null" >
+        restaurant_name,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="countyId != null" >
+        county_id,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="restaurantDetailedaddress != null" >
+        restaurant_detailedaddress,
+      </if>
+      <if test="restaurantkTelephone != null" >
+        restaurantk_telephone,
+      </if>
+      <if test="restaurantImg != null" >
+        restaurant_img,
+      </if>
+      <if test="restaurantIntdescr != null" >
+        restaurant_intdescr,
+      </if>
+      <if test="restaurantVardescr != null" >
+        restaurant_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="restaurantId != null" >
+        #{restaurantId,jdbcType=INTEGER},
+      </if>
+      <if test="restaurantName != null" >
+        #{restaurantName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="restaurantDetailedaddress != null" >
+        #{restaurantDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="restaurantkTelephone != null" >
+        #{restaurantkTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="restaurantImg != null" >
+        #{restaurantImg,jdbcType=VARCHAR},
+      </if>
+      <if test="restaurantIntdescr != null" >
+        #{restaurantIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="restaurantVardescr != null" >
+        #{restaurantVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.RestaurantExample" resultType="java.lang.Integer" >
+    select count(*) from restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update restaurant
+    <set >
+      <if test="record.restaurantId != null" >
+        restaurant_id = #{record.restaurantId,jdbcType=INTEGER},
+      </if>
+      <if test="record.restaurantName != null" >
+        restaurant_name = #{record.restaurantName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countyId != null" >
+        county_id = #{record.countyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countryId != null" >
+        country_id = #{record.countryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.restaurantDetailedaddress != null" >
+        restaurant_detailedaddress = #{record.restaurantDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.restaurantkTelephone != null" >
+        restaurantk_telephone = #{record.restaurantkTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.restaurantImg != null" >
+        restaurant_img = #{record.restaurantImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.restaurantIntdescr != null" >
+        restaurant_intdescr = #{record.restaurantIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.restaurantVardescr != null" >
+        restaurant_vardescr = #{record.restaurantVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update restaurant
+    set restaurant_id = #{record.restaurantId,jdbcType=INTEGER},
+      restaurant_name = #{record.restaurantName,jdbcType=VARCHAR},
+      belong_type = #{record.belongType,jdbcType=VARCHAR},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      county_id = #{record.countyId,jdbcType=INTEGER},
+      country_id = #{record.countryId,jdbcType=INTEGER},
+      restaurant_detailedaddress = #{record.restaurantDetailedaddress,jdbcType=VARCHAR},
+      restaurantk_telephone = #{record.restaurantkTelephone,jdbcType=VARCHAR},
+      restaurant_img = #{record.restaurantImg,jdbcType=VARCHAR},
+      restaurant_intdescr = #{record.restaurantIntdescr,jdbcType=INTEGER},
+      restaurant_vardescr = #{record.restaurantVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Restaurant" >
+    update restaurant
+    <set >
+      <if test="restaurantName != null" >
+        restaurant_name = #{restaurantName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        county_id = #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="restaurantDetailedaddress != null" >
+        restaurant_detailedaddress = #{restaurantDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="restaurantkTelephone != null" >
+        restaurantk_telephone = #{restaurantkTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="restaurantImg != null" >
+        restaurant_img = #{restaurantImg,jdbcType=VARCHAR},
+      </if>
+      <if test="restaurantIntdescr != null" >
+        restaurant_intdescr = #{restaurantIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="restaurantVardescr != null" >
+        restaurant_vardescr = #{restaurantVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where restaurant_id = #{restaurantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Restaurant" >
+    update restaurant
+    set restaurant_name = #{restaurantName,jdbcType=VARCHAR},
+      belong_type = #{belongType,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      county_id = #{countyId,jdbcType=INTEGER},
+      country_id = #{countryId,jdbcType=INTEGER},
+      restaurant_detailedaddress = #{restaurantDetailedaddress,jdbcType=VARCHAR},
+      restaurantk_telephone = #{restaurantkTelephone,jdbcType=VARCHAR},
+      restaurant_img = #{restaurantImg,jdbcType=VARCHAR},
+      restaurant_intdescr = #{restaurantIntdescr,jdbcType=INTEGER},
+      restaurant_vardescr = #{restaurantVardescr,jdbcType=VARCHAR}
+    where restaurant_id = #{restaurantId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.HotelMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Hotel" >
+    <id column="hotel_id" property="hotelId" jdbcType="INTEGER" />
+    <result column="hotel_name" property="hotelName" jdbcType="VARCHAR" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="hotel_type" property="hotelType" jdbcType="VARCHAR" />
+    <result column="hotel_registetime" property="hotelRegistetime" jdbcType="TIMESTAMP" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="county_id" property="countyId" jdbcType="INTEGER" />
+    <result column="hotel_detailedaddress" property="hotelDetailedaddress" jdbcType="VARCHAR" />
+    <result column="hotel_tel" property="hotelTel" jdbcType="VARCHAR" />
+    <result column="hotel_contact" property="hotelContact" jdbcType="VARCHAR" />
+    <result column="hotel_img" property="hotelImg" jdbcType="VARCHAR" />
+    <result column="hotel_score" property="hotelScore" jdbcType="DOUBLE" />
+    <result column="hotel_comment" property="hotelComment" jdbcType="INTEGER" />
+    <result column="hotel_live" property="hotelLive" jdbcType="INTEGER" />
+    <result column="hotel_intdescr" property="hotelIntdescr" jdbcType="INTEGER" />
+    <result column="hotel_vardescr" property="hotelVardescr" jdbcType="VARCHAR" />
+    <result column="hotel_distance" property="hotelDistance" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hotel_id, hotel_name, belong_type, hotel_type, hotel_registetime, country_id, province_id, 
+    city_id, county_id, hotel_detailedaddress, hotel_tel, hotel_contact, hotel_img, hotel_score, 
+    hotel_comment, hotel_live, hotel_intdescr, hotel_vardescr, hotel_distance
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.HotelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hotel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hotel
+    where hotel_id = #{hotelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hotel
+    where hotel_id = #{hotelId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.HotelExample" >
+    delete from hotel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Hotel" >
+    insert into hotel (hotel_id, hotel_name, belong_type, 
+      hotel_type, hotel_registetime, country_id, 
+      province_id, city_id, county_id, 
+      hotel_detailedaddress, hotel_tel, hotel_contact, 
+      hotel_img, hotel_score, hotel_comment, 
+      hotel_live, hotel_intdescr, hotel_vardescr, 
+      hotel_distance)
+    values (#{hotelId,jdbcType=INTEGER}, #{hotelName,jdbcType=VARCHAR}, #{belongType,jdbcType=VARCHAR}, 
+      #{hotelType,jdbcType=VARCHAR}, #{hotelRegistetime,jdbcType=TIMESTAMP}, #{countryId,jdbcType=INTEGER}, 
+      #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{countyId,jdbcType=INTEGER}, 
+      #{hotelDetailedaddress,jdbcType=VARCHAR}, #{hotelTel,jdbcType=VARCHAR}, #{hotelContact,jdbcType=VARCHAR}, 
+      #{hotelImg,jdbcType=VARCHAR}, #{hotelScore,jdbcType=DOUBLE}, #{hotelComment,jdbcType=INTEGER}, 
+      #{hotelLive,jdbcType=INTEGER}, #{hotelIntdescr,jdbcType=INTEGER}, #{hotelVardescr,jdbcType=VARCHAR}, 
+      #{hotelDistance,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Hotel" >
+    insert into hotel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotelId != null" >
+        hotel_id,
+      </if>
+      <if test="hotelName != null" >
+        hotel_name,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="hotelType != null" >
+        hotel_type,
+      </if>
+      <if test="hotelRegistetime != null" >
+        hotel_registetime,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="countyId != null" >
+        county_id,
+      </if>
+      <if test="hotelDetailedaddress != null" >
+        hotel_detailedaddress,
+      </if>
+      <if test="hotelTel != null" >
+        hotel_tel,
+      </if>
+      <if test="hotelContact != null" >
+        hotel_contact,
+      </if>
+      <if test="hotelImg != null" >
+        hotel_img,
+      </if>
+      <if test="hotelScore != null" >
+        hotel_score,
+      </if>
+      <if test="hotelComment != null" >
+        hotel_comment,
+      </if>
+      <if test="hotelLive != null" >
+        hotel_live,
+      </if>
+      <if test="hotelIntdescr != null" >
+        hotel_intdescr,
+      </if>
+      <if test="hotelVardescr != null" >
+        hotel_vardescr,
+      </if>
+      <if test="hotelDistance != null" >
+        hotel_distance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotelId != null" >
+        #{hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelName != null" >
+        #{hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelType != null" >
+        #{hotelType,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegistetime != null" >
+        #{hotelRegistetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelDetailedaddress != null" >
+        #{hotelDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelTel != null" >
+        #{hotelTel,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelContact != null" >
+        #{hotelContact,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelImg != null" >
+        #{hotelImg,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelScore != null" >
+        #{hotelScore,jdbcType=DOUBLE},
+      </if>
+      <if test="hotelComment != null" >
+        #{hotelComment,jdbcType=INTEGER},
+      </if>
+      <if test="hotelLive != null" >
+        #{hotelLive,jdbcType=INTEGER},
+      </if>
+      <if test="hotelIntdescr != null" >
+        #{hotelIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="hotelVardescr != null" >
+        #{hotelVardescr,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelDistance != null" >
+        #{hotelDistance,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.HotelExample" resultType="java.lang.Integer" >
+    select count(*) from hotel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update hotel
+    <set >
+      <if test="record.hotelId != null" >
+        hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelName != null" >
+        hotel_name = #{record.hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelType != null" >
+        hotel_type = #{record.hotelType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelRegistetime != null" >
+        hotel_registetime = #{record.hotelRegistetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.countryId != null" >
+        country_id = #{record.countryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countyId != null" >
+        county_id = #{record.countyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelDetailedaddress != null" >
+        hotel_detailedaddress = #{record.hotelDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelTel != null" >
+        hotel_tel = #{record.hotelTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelContact != null" >
+        hotel_contact = #{record.hotelContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelImg != null" >
+        hotel_img = #{record.hotelImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelScore != null" >
+        hotel_score = #{record.hotelScore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.hotelComment != null" >
+        hotel_comment = #{record.hotelComment,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelLive != null" >
+        hotel_live = #{record.hotelLive,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelIntdescr != null" >
+        hotel_intdescr = #{record.hotelIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelVardescr != null" >
+        hotel_vardescr = #{record.hotelVardescr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelDistance != null" >
+        hotel_distance = #{record.hotelDistance,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update hotel
+    set hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      hotel_name = #{record.hotelName,jdbcType=VARCHAR},
+      belong_type = #{record.belongType,jdbcType=VARCHAR},
+      hotel_type = #{record.hotelType,jdbcType=VARCHAR},
+      hotel_registetime = #{record.hotelRegistetime,jdbcType=TIMESTAMP},
+      country_id = #{record.countryId,jdbcType=INTEGER},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      county_id = #{record.countyId,jdbcType=INTEGER},
+      hotel_detailedaddress = #{record.hotelDetailedaddress,jdbcType=VARCHAR},
+      hotel_tel = #{record.hotelTel,jdbcType=VARCHAR},
+      hotel_contact = #{record.hotelContact,jdbcType=VARCHAR},
+      hotel_img = #{record.hotelImg,jdbcType=VARCHAR},
+      hotel_score = #{record.hotelScore,jdbcType=DOUBLE},
+      hotel_comment = #{record.hotelComment,jdbcType=INTEGER},
+      hotel_live = #{record.hotelLive,jdbcType=INTEGER},
+      hotel_intdescr = #{record.hotelIntdescr,jdbcType=INTEGER},
+      hotel_vardescr = #{record.hotelVardescr,jdbcType=VARCHAR},
+      hotel_distance = #{record.hotelDistance,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Hotel" >
+    update hotel
+    <set >
+      <if test="hotelName != null" >
+        hotel_name = #{hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelType != null" >
+        hotel_type = #{hotelType,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegistetime != null" >
+        hotel_registetime = #{hotelRegistetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="countyId != null" >
+        county_id = #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelDetailedaddress != null" >
+        hotel_detailedaddress = #{hotelDetailedaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelTel != null" >
+        hotel_tel = #{hotelTel,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelContact != null" >
+        hotel_contact = #{hotelContact,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelImg != null" >
+        hotel_img = #{hotelImg,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelScore != null" >
+        hotel_score = #{hotelScore,jdbcType=DOUBLE},
+      </if>
+      <if test="hotelComment != null" >
+        hotel_comment = #{hotelComment,jdbcType=INTEGER},
+      </if>
+      <if test="hotelLive != null" >
+        hotel_live = #{hotelLive,jdbcType=INTEGER},
+      </if>
+      <if test="hotelIntdescr != null" >
+        hotel_intdescr = #{hotelIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="hotelVardescr != null" >
+        hotel_vardescr = #{hotelVardescr,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelDistance != null" >
+        hotel_distance = #{hotelDistance,jdbcType=REAL},
+      </if>
+    </set>
+    where hotel_id = #{hotelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Hotel" >
+    update hotel
+    set hotel_name = #{hotelName,jdbcType=VARCHAR},
+      belong_type = #{belongType,jdbcType=VARCHAR},
+      hotel_type = #{hotelType,jdbcType=VARCHAR},
+      hotel_registetime = #{hotelRegistetime,jdbcType=TIMESTAMP},
+      country_id = #{countryId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      county_id = #{countyId,jdbcType=INTEGER},
+      hotel_detailedaddress = #{hotelDetailedaddress,jdbcType=VARCHAR},
+      hotel_tel = #{hotelTel,jdbcType=VARCHAR},
+      hotel_contact = #{hotelContact,jdbcType=VARCHAR},
+      hotel_img = #{hotelImg,jdbcType=VARCHAR},
+      hotel_score = #{hotelScore,jdbcType=DOUBLE},
+      hotel_comment = #{hotelComment,jdbcType=INTEGER},
+      hotel_live = #{hotelLive,jdbcType=INTEGER},
+      hotel_intdescr = #{hotelIntdescr,jdbcType=INTEGER},
+      hotel_vardescr = #{hotelVardescr,jdbcType=VARCHAR},
+      hotel_distance = #{hotelDistance,jdbcType=REAL}
+    where hotel_id = #{hotelId,jdbcType=INTEGER}
+  </update>
+</mapper>

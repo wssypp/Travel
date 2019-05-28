@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.ScenicCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.ScenicComment" >
+    <id column="scenic_comment_id" property="scenicCommentId" jdbcType="INTEGER" />
+    <result column="scenic_comment_time" property="scenicCommentTime" jdbcType="TIMESTAMP" />
+    <result column="scenic_comment_img" property="scenicCommentImg" jdbcType="VARCHAR" />
+    <result column="scenic_comment_content" property="scenicCommentContent" jdbcType="VARCHAR" />
+    <result column="scenic_comment_like" property="scenicCommentLike" jdbcType="INTEGER" />
+    <result column="scenic_comment_type" property="scenicCommentType" jdbcType="VARCHAR" />
+    <result column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="scenic_id" property="scenicId" jdbcType="INTEGER" />
+    <result column="scenic_comment_intdescr" property="scenicCommentIntdescr" jdbcType="INTEGER" />
+    <result column="scenic_comment_vardescr" property="scenicCommentVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    scenic_comment_id, scenic_comment_time, scenic_comment_img, scenic_comment_content, 
+    scenic_comment_like, scenic_comment_type, users_id, scenic_id, scenic_comment_intdescr, 
+    scenic_comment_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.ScenicCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scenic_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scenic_comment
+    where scenic_comment_id = #{scenicCommentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scenic_comment
+    where scenic_comment_id = #{scenicCommentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.ScenicCommentExample" >
+    delete from scenic_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.ScenicComment" >
+    insert into scenic_comment (scenic_comment_id, scenic_comment_time, 
+      scenic_comment_img, scenic_comment_content, 
+      scenic_comment_like, scenic_comment_type, users_id, 
+      scenic_id, scenic_comment_intdescr, scenic_comment_vardescr
+      )
+    values (#{scenicCommentId,jdbcType=INTEGER}, #{scenicCommentTime,jdbcType=TIMESTAMP}, 
+      #{scenicCommentImg,jdbcType=VARCHAR}, #{scenicCommentContent,jdbcType=VARCHAR}, 
+      #{scenicCommentLike,jdbcType=INTEGER}, #{scenicCommentType,jdbcType=VARCHAR}, #{usersId,jdbcType=INTEGER}, 
+      #{scenicId,jdbcType=INTEGER}, #{scenicCommentIntdescr,jdbcType=INTEGER}, #{scenicCommentVardescr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.ScenicComment" >
+    insert into scenic_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scenicCommentId != null" >
+        scenic_comment_id,
+      </if>
+      <if test="scenicCommentTime != null" >
+        scenic_comment_time,
+      </if>
+      <if test="scenicCommentImg != null" >
+        scenic_comment_img,
+      </if>
+      <if test="scenicCommentContent != null" >
+        scenic_comment_content,
+      </if>
+      <if test="scenicCommentLike != null" >
+        scenic_comment_like,
+      </if>
+      <if test="scenicCommentType != null" >
+        scenic_comment_type,
+      </if>
+      <if test="usersId != null" >
+        users_id,
+      </if>
+      <if test="scenicId != null" >
+        scenic_id,
+      </if>
+      <if test="scenicCommentIntdescr != null" >
+        scenic_comment_intdescr,
+      </if>
+      <if test="scenicCommentVardescr != null" >
+        scenic_comment_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scenicCommentId != null" >
+        #{scenicCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentTime != null" >
+        #{scenicCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scenicCommentImg != null" >
+        #{scenicCommentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicCommentContent != null" >
+        #{scenicCommentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicCommentLike != null" >
+        #{scenicCommentLike,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentType != null" >
+        #{scenicCommentType,jdbcType=VARCHAR},
+      </if>
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicId != null" >
+        #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentIntdescr != null" >
+        #{scenicCommentIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentVardescr != null" >
+        #{scenicCommentVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.ScenicCommentExample" resultType="java.lang.Integer" >
+    select count(*) from scenic_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scenic_comment
+    <set >
+      <if test="record.scenicCommentId != null" >
+        scenic_comment_id = #{record.scenicCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicCommentTime != null" >
+        scenic_comment_time = #{record.scenicCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.scenicCommentImg != null" >
+        scenic_comment_img = #{record.scenicCommentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicCommentContent != null" >
+        scenic_comment_content = #{record.scenicCommentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicCommentLike != null" >
+        scenic_comment_like = #{record.scenicCommentLike,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicCommentType != null" >
+        scenic_comment_type = #{record.scenicCommentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersId != null" >
+        users_id = #{record.usersId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicId != null" >
+        scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicCommentIntdescr != null" >
+        scenic_comment_intdescr = #{record.scenicCommentIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicCommentVardescr != null" >
+        scenic_comment_vardescr = #{record.scenicCommentVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scenic_comment
+    set scenic_comment_id = #{record.scenicCommentId,jdbcType=INTEGER},
+      scenic_comment_time = #{record.scenicCommentTime,jdbcType=TIMESTAMP},
+      scenic_comment_img = #{record.scenicCommentImg,jdbcType=VARCHAR},
+      scenic_comment_content = #{record.scenicCommentContent,jdbcType=VARCHAR},
+      scenic_comment_like = #{record.scenicCommentLike,jdbcType=INTEGER},
+      scenic_comment_type = #{record.scenicCommentType,jdbcType=VARCHAR},
+      users_id = #{record.usersId,jdbcType=INTEGER},
+      scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      scenic_comment_intdescr = #{record.scenicCommentIntdescr,jdbcType=INTEGER},
+      scenic_comment_vardescr = #{record.scenicCommentVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.ScenicComment" >
+    update scenic_comment
+    <set >
+      <if test="scenicCommentTime != null" >
+        scenic_comment_time = #{scenicCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scenicCommentImg != null" >
+        scenic_comment_img = #{scenicCommentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicCommentContent != null" >
+        scenic_comment_content = #{scenicCommentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicCommentLike != null" >
+        scenic_comment_like = #{scenicCommentLike,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentType != null" >
+        scenic_comment_type = #{scenicCommentType,jdbcType=VARCHAR},
+      </if>
+      <if test="usersId != null" >
+        users_id = #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicId != null" >
+        scenic_id = #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentIntdescr != null" >
+        scenic_comment_intdescr = #{scenicCommentIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentVardescr != null" >
+        scenic_comment_vardescr = #{scenicCommentVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where scenic_comment_id = #{scenicCommentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.ScenicComment" >
+    update scenic_comment
+    set scenic_comment_time = #{scenicCommentTime,jdbcType=TIMESTAMP},
+      scenic_comment_img = #{scenicCommentImg,jdbcType=VARCHAR},
+      scenic_comment_content = #{scenicCommentContent,jdbcType=VARCHAR},
+      scenic_comment_like = #{scenicCommentLike,jdbcType=INTEGER},
+      scenic_comment_type = #{scenicCommentType,jdbcType=VARCHAR},
+      users_id = #{usersId,jdbcType=INTEGER},
+      scenic_id = #{scenicId,jdbcType=INTEGER},
+      scenic_comment_intdescr = #{scenicCommentIntdescr,jdbcType=INTEGER},
+      scenic_comment_vardescr = #{scenicCommentVardescr,jdbcType=VARCHAR}
+    where scenic_comment_id = #{scenicCommentId,jdbcType=INTEGER}
+  </update>
+</mapper>

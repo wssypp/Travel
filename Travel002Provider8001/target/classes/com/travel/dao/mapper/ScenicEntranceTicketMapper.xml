@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.ScenicEntranceTicketMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.ScenicEntranceTicket" >
+    <id column="scenic_entrance_ticket_id" property="scenicEntranceTicketId" jdbcType="INTEGER" />
+    <result column="scenic_entrance_ticket_name" property="scenicEntranceTicketName" jdbcType="VARCHAR" />
+    <result column="scenic_entrance_ticket_time" property="scenicEntranceTicketTime" jdbcType="TIMESTAMP" />
+    <result column="scenic_entrance_ticket_notice" property="scenicEntranceTicketNotice" jdbcType="VARCHAR" />
+    <result column="scenic_entrance_ticket_type_id" property="scenicEntranceTicketTypeId" jdbcType="INTEGER" />
+    <result column="scenic_order_id" property="scenicOrderId" jdbcType="INTEGER" />
+    <result column="scenic_entrance_ticket_count" property="scenicEntranceTicketCount" jdbcType="INTEGER" />
+    <result column="scenic_entrance_ticket_img" property="scenicEntranceTicketImg" jdbcType="VARCHAR" />
+    <result column="scenic_entrance_ticket_intdescr" property="scenicEntranceTicketIntdescr" jdbcType="INTEGER" />
+    <result column="scenic_entrance_ticket_vardescr" property="scenicEntranceTicketVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    scenic_entrance_ticket_id, scenic_entrance_ticket_name, scenic_entrance_ticket_time, 
+    scenic_entrance_ticket_notice, scenic_entrance_ticket_type_id, scenic_order_id, scenic_entrance_ticket_count, 
+    scenic_entrance_ticket_img, scenic_entrance_ticket_intdescr, scenic_entrance_ticket_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.ScenicEntranceTicketExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scenic_entrance_ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scenic_entrance_ticket
+    where scenic_entrance_ticket_id = #{scenicEntranceTicketId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scenic_entrance_ticket
+    where scenic_entrance_ticket_id = #{scenicEntranceTicketId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.ScenicEntranceTicketExample" >
+    delete from scenic_entrance_ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.ScenicEntranceTicket" >
+    insert into scenic_entrance_ticket (scenic_entrance_ticket_id, scenic_entrance_ticket_name, 
+      scenic_entrance_ticket_time, scenic_entrance_ticket_notice, 
+      scenic_entrance_ticket_type_id, scenic_order_id, 
+      scenic_entrance_ticket_count, scenic_entrance_ticket_img, 
+      scenic_entrance_ticket_intdescr, scenic_entrance_ticket_vardescr
+      )
+    values (#{scenicEntranceTicketId,jdbcType=INTEGER}, #{scenicEntranceTicketName,jdbcType=VARCHAR}, 
+      #{scenicEntranceTicketTime,jdbcType=TIMESTAMP}, #{scenicEntranceTicketNotice,jdbcType=VARCHAR}, 
+      #{scenicEntranceTicketTypeId,jdbcType=INTEGER}, #{scenicOrderId,jdbcType=INTEGER}, 
+      #{scenicEntranceTicketCount,jdbcType=INTEGER}, #{scenicEntranceTicketImg,jdbcType=VARCHAR}, 
+      #{scenicEntranceTicketIntdescr,jdbcType=INTEGER}, #{scenicEntranceTicketVardescr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.ScenicEntranceTicket" >
+    insert into scenic_entrance_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scenicEntranceTicketId != null" >
+        scenic_entrance_ticket_id,
+      </if>
+      <if test="scenicEntranceTicketName != null" >
+        scenic_entrance_ticket_name,
+      </if>
+      <if test="scenicEntranceTicketTime != null" >
+        scenic_entrance_ticket_time,
+      </if>
+      <if test="scenicEntranceTicketNotice != null" >
+        scenic_entrance_ticket_notice,
+      </if>
+      <if test="scenicEntranceTicketTypeId != null" >
+        scenic_entrance_ticket_type_id,
+      </if>
+      <if test="scenicOrderId != null" >
+        scenic_order_id,
+      </if>
+      <if test="scenicEntranceTicketCount != null" >
+        scenic_entrance_ticket_count,
+      </if>
+      <if test="scenicEntranceTicketImg != null" >
+        scenic_entrance_ticket_img,
+      </if>
+      <if test="scenicEntranceTicketIntdescr != null" >
+        scenic_entrance_ticket_intdescr,
+      </if>
+      <if test="scenicEntranceTicketVardescr != null" >
+        scenic_entrance_ticket_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scenicEntranceTicketId != null" >
+        #{scenicEntranceTicketId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicEntranceTicketName != null" >
+        #{scenicEntranceTicketName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicEntranceTicketTime != null" >
+        #{scenicEntranceTicketTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scenicEntranceTicketNotice != null" >
+        #{scenicEntranceTicketNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicEntranceTicketTypeId != null" >
+        #{scenicEntranceTicketTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicOrderId != null" >
+        #{scenicOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicEntranceTicketCount != null" >
+        #{scenicEntranceTicketCount,jdbcType=INTEGER},
+      </if>
+      <if test="scenicEntranceTicketImg != null" >
+        #{scenicEntranceTicketImg,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicEntranceTicketIntdescr != null" >
+        #{scenicEntranceTicketIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="scenicEntranceTicketVardescr != null" >
+        #{scenicEntranceTicketVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.ScenicEntranceTicketExample" resultType="java.lang.Integer" >
+    select count(*) from scenic_entrance_ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scenic_entrance_ticket
+    <set >
+      <if test="record.scenicEntranceTicketId != null" >
+        scenic_entrance_ticket_id = #{record.scenicEntranceTicketId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicEntranceTicketName != null" >
+        scenic_entrance_ticket_name = #{record.scenicEntranceTicketName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicEntranceTicketTime != null" >
+        scenic_entrance_ticket_time = #{record.scenicEntranceTicketTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.scenicEntranceTicketNotice != null" >
+        scenic_entrance_ticket_notice = #{record.scenicEntranceTicketNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicEntranceTicketTypeId != null" >
+        scenic_entrance_ticket_type_id = #{record.scenicEntranceTicketTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicOrderId != null" >
+        scenic_order_id = #{record.scenicOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicEntranceTicketCount != null" >
+        scenic_entrance_ticket_count = #{record.scenicEntranceTicketCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicEntranceTicketImg != null" >
+        scenic_entrance_ticket_img = #{record.scenicEntranceTicketImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicEntranceTicketIntdescr != null" >
+        scenic_entrance_ticket_intdescr = #{record.scenicEntranceTicketIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicEntranceTicketVardescr != null" >
+        scenic_entrance_ticket_vardescr = #{record.scenicEntranceTicketVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scenic_entrance_ticket
+    set scenic_entrance_ticket_id = #{record.scenicEntranceTicketId,jdbcType=INTEGER},
+      scenic_entrance_ticket_name = #{record.scenicEntranceTicketName,jdbcType=VARCHAR},
+      scenic_entrance_ticket_time = #{record.scenicEntranceTicketTime,jdbcType=TIMESTAMP},
+      scenic_entrance_ticket_notice = #{record.scenicEntranceTicketNotice,jdbcType=VARCHAR},
+      scenic_entrance_ticket_type_id = #{record.scenicEntranceTicketTypeId,jdbcType=INTEGER},
+      scenic_order_id = #{record.scenicOrderId,jdbcType=INTEGER},
+      scenic_entrance_ticket_count = #{record.scenicEntranceTicketCount,jdbcType=INTEGER},
+      scenic_entrance_ticket_img = #{record.scenicEntranceTicketImg,jdbcType=VARCHAR},
+      scenic_entrance_ticket_intdescr = #{record.scenicEntranceTicketIntdescr,jdbcType=INTEGER},
+      scenic_entrance_ticket_vardescr = #{record.scenicEntranceTicketVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.ScenicEntranceTicket" >
+    update scenic_entrance_ticket
+    <set >
+      <if test="scenicEntranceTicketName != null" >
+        scenic_entrance_ticket_name = #{scenicEntranceTicketName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicEntranceTicketTime != null" >
+        scenic_entrance_ticket_time = #{scenicEntranceTicketTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scenicEntranceTicketNotice != null" >
+        scenic_entrance_ticket_notice = #{scenicEntranceTicketNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicEntranceTicketTypeId != null" >
+        scenic_entrance_ticket_type_id = #{scenicEntranceTicketTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicOrderId != null" >
+        scenic_order_id = #{scenicOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicEntranceTicketCount != null" >
+        scenic_entrance_ticket_count = #{scenicEntranceTicketCount,jdbcType=INTEGER},
+      </if>
+      <if test="scenicEntranceTicketImg != null" >
+        scenic_entrance_ticket_img = #{scenicEntranceTicketImg,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicEntranceTicketIntdescr != null" >
+        scenic_entrance_ticket_intdescr = #{scenicEntranceTicketIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="scenicEntranceTicketVardescr != null" >
+        scenic_entrance_ticket_vardescr = #{scenicEntranceTicketVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where scenic_entrance_ticket_id = #{scenicEntranceTicketId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.ScenicEntranceTicket" >
+    update scenic_entrance_ticket
+    set scenic_entrance_ticket_name = #{scenicEntranceTicketName,jdbcType=VARCHAR},
+      scenic_entrance_ticket_time = #{scenicEntranceTicketTime,jdbcType=TIMESTAMP},
+      scenic_entrance_ticket_notice = #{scenicEntranceTicketNotice,jdbcType=VARCHAR},
+      scenic_entrance_ticket_type_id = #{scenicEntranceTicketTypeId,jdbcType=INTEGER},
+      scenic_order_id = #{scenicOrderId,jdbcType=INTEGER},
+      scenic_entrance_ticket_count = #{scenicEntranceTicketCount,jdbcType=INTEGER},
+      scenic_entrance_ticket_img = #{scenicEntranceTicketImg,jdbcType=VARCHAR},
+      scenic_entrance_ticket_intdescr = #{scenicEntranceTicketIntdescr,jdbcType=INTEGER},
+      scenic_entrance_ticket_vardescr = #{scenicEntranceTicketVardescr,jdbcType=VARCHAR}
+    where scenic_entrance_ticket_id = #{scenicEntranceTicketId,jdbcType=INTEGER}
+  </update>
+</mapper>

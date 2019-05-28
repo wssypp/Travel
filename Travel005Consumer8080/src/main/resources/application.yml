@@ -2,24 +2,24 @@ server:
   port: 8080
 spring:
   application:
-    name: Travel005Consumer8080-consumer
+    name: Travel005Consumer8080Consumer
   thymeleaf:
+    enabled: true
     cache: false
     mode: HTML5
     prefix: /
     suffix: .html
-    enabled: true
     content-type: text/html; charset=utf-8
     encoding: UTF-8 
 eureka:
   client:
     register-with-eureka: false
     service-url: 
-      7: http://localhost:7001/eureka/,http://localhost:7002/eureka/,http://localhost:7003/eureka/
-      defaultZone: http://localhost:7001/eureka/
-feign:
-  hystrix:
-    enable: true
+#      defaultZone: http://localhost:7001/eureka/,http://localhost:7002/eureka/,http://localhost:7003/eureka/
+      defaultZone: http://10.12.159.23:7001/eureka/
+#feign:
+#  hystrix:
+#    enable: true
 #hystrix:
 #  metrics:
 #    enabled: true

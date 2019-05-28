@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.ScenicResponseMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.ScenicResponse" >
+    <id column="scenic_response_id" property="scenicResponseId" jdbcType="INTEGER" />
+    <result column="scenic_response_time" property="scenicResponseTime" jdbcType="TIMESTAMP" />
+    <result column="scenic_response_img" property="scenicResponseImg" jdbcType="VARCHAR" />
+    <result column="scenic_response_content" property="scenicResponseContent" jdbcType="VARCHAR" />
+    <result column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="scenic_comment_id" property="scenicCommentId" jdbcType="INTEGER" />
+    <result column="scenic_response_intdescr" property="scenicResponseIntdescr" jdbcType="INTEGER" />
+    <result column="scenic_response_vardescr" property="scenicResponseVardescr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    scenic_response_id, scenic_response_time, scenic_response_img, scenic_response_content, 
+    users_id, scenic_comment_id, scenic_response_intdescr, scenic_response_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.ScenicResponseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scenic_response
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scenic_response
+    where scenic_response_id = #{scenicResponseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scenic_response
+    where scenic_response_id = #{scenicResponseId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.ScenicResponseExample" >
+    delete from scenic_response
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.ScenicResponse" >
+    insert into scenic_response (scenic_response_id, scenic_response_time, 
+      scenic_response_img, scenic_response_content, 
+      users_id, scenic_comment_id, scenic_response_intdescr, 
+      scenic_response_vardescr)
+    values (#{scenicResponseId,jdbcType=INTEGER}, #{scenicResponseTime,jdbcType=TIMESTAMP}, 
+      #{scenicResponseImg,jdbcType=VARCHAR}, #{scenicResponseContent,jdbcType=VARCHAR}, 
+      #{usersId,jdbcType=INTEGER}, #{scenicCommentId,jdbcType=INTEGER}, #{scenicResponseIntdescr,jdbcType=INTEGER}, 
+      #{scenicResponseVardescr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.ScenicResponse" >
+    insert into scenic_response
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scenicResponseId != null" >
+        scenic_response_id,
+      </if>
+      <if test="scenicResponseTime != null" >
+        scenic_response_time,
+      </if>
+      <if test="scenicResponseImg != null" >
+        scenic_response_img,
+      </if>
+      <if test="scenicResponseContent != null" >
+        scenic_response_content,
+      </if>
+      <if test="usersId != null" >
+        users_id,
+      </if>
+      <if test="scenicCommentId != null" >
+        scenic_comment_id,
+      </if>
+      <if test="scenicResponseIntdescr != null" >
+        scenic_response_intdescr,
+      </if>
+      <if test="scenicResponseVardescr != null" >
+        scenic_response_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scenicResponseId != null" >
+        #{scenicResponseId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicResponseTime != null" >
+        #{scenicResponseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scenicResponseImg != null" >
+        #{scenicResponseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicResponseContent != null" >
+        #{scenicResponseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentId != null" >
+        #{scenicCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicResponseIntdescr != null" >
+        #{scenicResponseIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="scenicResponseVardescr != null" >
+        #{scenicResponseVardescr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.ScenicResponseExample" resultType="java.lang.Integer" >
+    select count(*) from scenic_response
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scenic_response
+    <set >
+      <if test="record.scenicResponseId != null" >
+        scenic_response_id = #{record.scenicResponseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicResponseTime != null" >
+        scenic_response_time = #{record.scenicResponseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.scenicResponseImg != null" >
+        scenic_response_img = #{record.scenicResponseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicResponseContent != null" >
+        scenic_response_content = #{record.scenicResponseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersId != null" >
+        users_id = #{record.usersId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicCommentId != null" >
+        scenic_comment_id = #{record.scenicCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicResponseIntdescr != null" >
+        scenic_response_intdescr = #{record.scenicResponseIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicResponseVardescr != null" >
+        scenic_response_vardescr = #{record.scenicResponseVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scenic_response
+    set scenic_response_id = #{record.scenicResponseId,jdbcType=INTEGER},
+      scenic_response_time = #{record.scenicResponseTime,jdbcType=TIMESTAMP},
+      scenic_response_img = #{record.scenicResponseImg,jdbcType=VARCHAR},
+      scenic_response_content = #{record.scenicResponseContent,jdbcType=VARCHAR},
+      users_id = #{record.usersId,jdbcType=INTEGER},
+      scenic_comment_id = #{record.scenicCommentId,jdbcType=INTEGER},
+      scenic_response_intdescr = #{record.scenicResponseIntdescr,jdbcType=INTEGER},
+      scenic_response_vardescr = #{record.scenicResponseVardescr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.ScenicResponse" >
+    update scenic_response
+    <set >
+      <if test="scenicResponseTime != null" >
+        scenic_response_time = #{scenicResponseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scenicResponseImg != null" >
+        scenic_response_img = #{scenicResponseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicResponseContent != null" >
+        scenic_response_content = #{scenicResponseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="usersId != null" >
+        users_id = #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicCommentId != null" >
+        scenic_comment_id = #{scenicCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicResponseIntdescr != null" >
+        scenic_response_intdescr = #{scenicResponseIntdescr,jdbcType=INTEGER},
+      </if>
+      <if test="scenicResponseVardescr != null" >
+        scenic_response_vardescr = #{scenicResponseVardescr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where scenic_response_id = #{scenicResponseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.ScenicResponse" >
+    update scenic_response
+    set scenic_response_time = #{scenicResponseTime,jdbcType=TIMESTAMP},
+      scenic_response_img = #{scenicResponseImg,jdbcType=VARCHAR},
+      scenic_response_content = #{scenicResponseContent,jdbcType=VARCHAR},
+      users_id = #{usersId,jdbcType=INTEGER},
+      scenic_comment_id = #{scenicCommentId,jdbcType=INTEGER},
+      scenic_response_intdescr = #{scenicResponseIntdescr,jdbcType=INTEGER},
+      scenic_response_vardescr = #{scenicResponseVardescr,jdbcType=VARCHAR}
+    where scenic_response_id = #{scenicResponseId,jdbcType=INTEGER}
+  </update>
+</mapper>

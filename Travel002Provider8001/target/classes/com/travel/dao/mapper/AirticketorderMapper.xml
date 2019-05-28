@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.AirticketorderMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.pojo.Airticketorder" >
+    <id column="airticketorder_id" property="airticketorderId" jdbcType="INTEGER" />
+    <result column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="airticketorder_date" property="airticketorderDate" jdbcType="TIMESTAMP" />
+    <result column="flightinfo_id" property="flightinfoId" jdbcType="INTEGER" />
+    <result column="aircraftinfo_price" property="aircraftinfoPrice" jdbcType="DOUBLE" />
+    <result column="aircraftinfo_cangwei" property="aircraftinfoCangwei" jdbcType="VARCHAR" />
+    <result column="airperson_id" property="airpersonId" jdbcType="INTEGER" />
+    <result column="airticketorder_person" property="airticketorderPerson" jdbcType="VARCHAR" />
+    <result column="airticketorder_phone" property="airticketorderPhone" jdbcType="VARCHAR" />
+    <result column="airticketorder_intdescr" property="airticketorderIntdescr" jdbcType="VARCHAR" />
+    <result column="airticketorder_vardescr" property="airticketorderVardescr" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    airticketorder_id, users_id, airticketorder_date, flightinfo_id, aircraftinfo_price, 
+    aircraftinfo_cangwei, airperson_id, airticketorder_person, airticketorder_phone, 
+    airticketorder_intdescr, airticketorder_vardescr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.AirticketorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from airticketorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from airticketorder
+    where airticketorder_id = #{airticketorderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from airticketorder
+    where airticketorder_id = #{airticketorderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.pojo.AirticketorderExample" >
+    delete from airticketorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.pojo.Airticketorder" >
+    insert into airticketorder (airticketorder_id, users_id, airticketorder_date, 
+      flightinfo_id, aircraftinfo_price, aircraftinfo_cangwei, 
+      airperson_id, airticketorder_person, airticketorder_phone, 
+      airticketorder_intdescr, airticketorder_vardescr
+      )
+    values (#{airticketorderId,jdbcType=INTEGER}, #{usersId,jdbcType=INTEGER}, #{airticketorderDate,jdbcType=TIMESTAMP}, 
+      #{flightinfoId,jdbcType=INTEGER}, #{aircraftinfoPrice,jdbcType=DOUBLE}, #{aircraftinfoCangwei,jdbcType=VARCHAR}, 
+      #{airpersonId,jdbcType=INTEGER}, #{airticketorderPerson,jdbcType=VARCHAR}, #{airticketorderPhone,jdbcType=VARCHAR}, 
+      #{airticketorderIntdescr,jdbcType=VARCHAR}, #{airticketorderVardescr,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.pojo.Airticketorder" >
+    insert into airticketorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="airticketorderId != null" >
+        airticketorder_id,
+      </if>
+      <if test="usersId != null" >
+        users_id,
+      </if>
+      <if test="airticketorderDate != null" >
+        airticketorder_date,
+      </if>
+      <if test="flightinfoId != null" >
+        flightinfo_id,
+      </if>
+      <if test="aircraftinfoPrice != null" >
+        aircraftinfo_price,
+      </if>
+      <if test="aircraftinfoCangwei != null" >
+        aircraftinfo_cangwei,
+      </if>
+      <if test="airpersonId != null" >
+        airperson_id,
+      </if>
+      <if test="airticketorderPerson != null" >
+        airticketorder_person,
+      </if>
+      <if test="airticketorderPhone != null" >
+        airticketorder_phone,
+      </if>
+      <if test="airticketorderIntdescr != null" >
+        airticketorder_intdescr,
+      </if>
+      <if test="airticketorderVardescr != null" >
+        airticketorder_vardescr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="airticketorderId != null" >
+        #{airticketorderId,jdbcType=INTEGER},
+      </if>
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="airticketorderDate != null" >
+        #{airticketorderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flightinfoId != null" >
+        #{flightinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="aircraftinfoPrice != null" >
+        #{aircraftinfoPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="aircraftinfoCangwei != null" >
+        #{aircraftinfoCangwei,jdbcType=VARCHAR},
+      </if>
+      <if test="airpersonId != null" >
+        #{airpersonId,jdbcType=INTEGER},
+      </if>
+      <if test="airticketorderPerson != null" >
+        #{airticketorderPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="airticketorderPhone != null" >
+        #{airticketorderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="airticketorderIntdescr != null" >
+        #{airticketorderIntdescr,jdbcType=VARCHAR},
+      </if>
+      <if test="airticketorderVardescr != null" >
+        #{airticketorderVardescr,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.pojo.AirticketorderExample" resultType="java.lang.Integer" >
+    select count(*) from airticketorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update airticketorder
+    <set >
+      <if test="record.airticketorderId != null" >
+        airticketorder_id = #{record.airticketorderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.usersId != null" >
+        users_id = #{record.usersId,jdbcType=INTEGER},
+      </if>
+      <if test="record.airticketorderDate != null" >
+        airticketorder_date = #{record.airticketorderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flightinfoId != null" >
+        flightinfo_id = #{record.flightinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aircraftinfoPrice != null" >
+        aircraftinfo_price = #{record.aircraftinfoPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.aircraftinfoCangwei != null" >
+        aircraftinfo_cangwei = #{record.aircraftinfoCangwei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airpersonId != null" >
+        airperson_id = #{record.airpersonId,jdbcType=INTEGER},
+      </if>
+      <if test="record.airticketorderPerson != null" >
+        airticketorder_person = #{record.airticketorderPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airticketorderPhone != null" >
+        airticketorder_phone = #{record.airticketorderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airticketorderIntdescr != null" >
+        airticketorder_intdescr = #{record.airticketorderIntdescr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airticketorderVardescr != null" >
+        airticketorder_vardescr = #{record.airticketorderVardescr,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update airticketorder
+    set airticketorder_id = #{record.airticketorderId,jdbcType=INTEGER},
+      users_id = #{record.usersId,jdbcType=INTEGER},
+      airticketorder_date = #{record.airticketorderDate,jdbcType=TIMESTAMP},
+      flightinfo_id = #{record.flightinfoId,jdbcType=INTEGER},
+      aircraftinfo_price = #{record.aircraftinfoPrice,jdbcType=DOUBLE},
+      aircraftinfo_cangwei = #{record.aircraftinfoCangwei,jdbcType=VARCHAR},
+      airperson_id = #{record.airpersonId,jdbcType=INTEGER},
+      airticketorder_person = #{record.airticketorderPerson,jdbcType=VARCHAR},
+      airticketorder_phone = #{record.airticketorderPhone,jdbcType=VARCHAR},
+      airticketorder_intdescr = #{record.airticketorderIntdescr,jdbcType=VARCHAR},
+      airticketorder_vardescr = #{record.airticketorderVardescr,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.pojo.Airticketorder" >
+    update airticketorder
+    <set >
+      <if test="usersId != null" >
+        users_id = #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="airticketorderDate != null" >
+        airticketorder_date = #{airticketorderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flightinfoId != null" >
+        flightinfo_id = #{flightinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="aircraftinfoPrice != null" >
+        aircraftinfo_price = #{aircraftinfoPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="aircraftinfoCangwei != null" >
+        aircraftinfo_cangwei = #{aircraftinfoCangwei,jdbcType=VARCHAR},
+      </if>
+      <if test="airpersonId != null" >
+        airperson_id = #{airpersonId,jdbcType=INTEGER},
+      </if>
+      <if test="airticketorderPerson != null" >
+        airticketorder_person = #{airticketorderPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="airticketorderPhone != null" >
+        airticketorder_phone = #{airticketorderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="airticketorderIntdescr != null" >
+        airticketorder_intdescr = #{airticketorderIntdescr,jdbcType=VARCHAR},
+      </if>
+      <if test="airticketorderVardescr != null" >
+        airticketorder_vardescr = #{airticketorderVardescr,jdbcType=INTEGER},
+      </if>
+    </set>
+    where airticketorder_id = #{airticketorderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.pojo.Airticketorder" >
+    update airticketorder
+    set users_id = #{usersId,jdbcType=INTEGER},
+      airticketorder_date = #{airticketorderDate,jdbcType=TIMESTAMP},
+      flightinfo_id = #{flightinfoId,jdbcType=INTEGER},
+      aircraftinfo_price = #{aircraftinfoPrice,jdbcType=DOUBLE},
+      aircraftinfo_cangwei = #{aircraftinfoCangwei,jdbcType=VARCHAR},
+      airperson_id = #{airpersonId,jdbcType=INTEGER},
+      airticketorder_person = #{airticketorderPerson,jdbcType=VARCHAR},
+      airticketorder_phone = #{airticketorderPhone,jdbcType=VARCHAR},
+      airticketorder_intdescr = #{airticketorderIntdescr,jdbcType=VARCHAR},
+      airticketorder_vardescr = #{airticketorderVardescr,jdbcType=INTEGER}
+    where airticketorder_id = #{airticketorderId,jdbcType=INTEGER}
+  </update>
+</mapper>
